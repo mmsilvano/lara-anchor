@@ -2,22 +2,18 @@
 
 set -e
 
-PROJECT_NAME="lara-anchor"
+echo "⚡⚓ Setting up Lara Anchor in current project..."
 
-echo "⚡⚓ Setting up $PROJECT_NAME..."
+# Get the script directory so it's portable
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Make project directory
-mkdir -p $PROJECT_NAME
-cd $PROJECT_NAME
+# Copy template files into current directory
+cp -r "$SCRIPT_DIR/templates/"* .
 
-# Copy template files (adjust this path if needed)
-cp -r ./templates/* .
-
-echo "✅ $PROJECT_NAME setup complete!"
+echo "✅ Lara Anchor setup complete!"
 echo ""
 echo "🚀 Next steps:"
-echo "   1. cd $PROJECT_NAME"
-echo "   2. ⚡ sudo docker compose build"
-echo "   3. 🚀 sudo docker compose up -d"
+echo "   1. ⚡ sudo docker compose build"
+echo "   2. 🚀 sudo docker compose up -d"
 echo ""
 echo "⚡⚓ You're ready to start using Lara Anchor!"
