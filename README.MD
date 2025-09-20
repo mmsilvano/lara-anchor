@@ -20,4 +20,4 @@ Spin up a full Laravel development and production stack with **PHP-FPM, Nginx, M
 Run the following command to bootstrap your project:
 
 ```bash
-curl -sSL https://yourdomain.com/install.sh | bash
+curl -sSL https://lara-anchor.netlify.app/install.sh | bash
