@@ -1,14 +1,19 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set -e
+# Target directory (current folder)
+TARGET_DIR="$PWD"
 
-echo "⚡⚓ Setting up Lara Anchor in current project..."
+# URL to your templates archive (zip)
+ARCHIVE_URL="https://lara-anchor.netlify.app/templates.zip"
 
-# Get the script directory so it's portable
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+echo "Downloading templates..."
+curl -L "$ARCHIVE_URL" -o "$TARGET_DIR/templates.zip"
 
-# Copy template files into current directory
-cp -r "$SCRIPT_DIR/templates/"* .
+echo "Extracting templates to $TARGET_DIR..."
+unzip -o "$TARGET_DIR/templates.zip" -d "$TARGET_DIR"
+
+# Clean up the zip file
+rm "$TARGET_DIR/templates.zip"
 
 echo "✅ Lara Anchor setup complete!"
 echo ""
