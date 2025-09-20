@@ -11,7 +11,7 @@ mkdir -p $PROJECT_NAME
 cd $PROJECT_NAME
 
 # Copy template files (adjust this path if needed)
-cp -r /templates/* .
+cp -r ./templates/* .
 
 echo "✅ $PROJECT_NAME setup complete!"
 echo ""
