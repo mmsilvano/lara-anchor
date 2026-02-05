@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Complete guide for Lara Anchor - Lightweight Laravel Docker starter. Installation, configuration, commands, troubleshooting, and FAQ.">
+	<meta name="keywords" content="Laravel Docker, setup guide, Docker Compose, installation, troubleshooting">
+	<meta name="author" content="Lara Anchor">
+	<meta name="robots" content="index, follow">
+	<meta property="og:title" content="Complete Guide - Lara Anchor Laravel Docker">
+	<meta property="og:description" content="Step-by-step guide for setting up Lara Anchor. Learn installation, configuration, and best practices.">
+	<meta property="og:type" content="website">
+	<title>Complete Guide - Lara Anchor | Setup & Configuration</title>
+
+	<!-- Favicon -->
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+	<script src="https://cdn.tailwindcss.com"></script>
+	<style>
+		html {
+			scroll-behavior: smooth;
+		}
+		.glass {
+			background: rgba(17, 24, 39, 0.7);
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+		}
+		.gradient-text {
+			background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+	</style>
+</head>
+
+<body class="bg-gray-950 text-gray-100">
+	
+	<!-- Navigation -->
+	<nav class="fixed w-full glass border-b border-gray-800/50 z-50">
+		<div class="max-w-7xl mx-auto px-6 lg:px-8 py-4">
+			<div class="flex justify-between items-center">
+				<div class="text-2xl font-bold gradient-text">⚓ Lara Anchor</div>
+				<div class="flex gap-8 items-center">
+					<a href="index.html" class="text-sm font-medium text-gray-300 hover:text-white transition">Home</a>
+					<a href="index.html#features" class="text-sm font-medium text-gray-300 hover:text-white transition">Features</a>
+					<a href="#" class="text-sm font-medium text-purple-400">Guide</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Main Content -->
+	<div class="pt-32 pb-20 px-6">
+		<div class="max-w-4xl mx-auto">
+			<!-- Header -->
+			<div class="mb-16 text-center">
+				<h1 class="text-5xl lg:text-6xl font-bold mb-4 gradient-text">Complete Guide</h1>
+				<p class="text-xl text-gray-400">Everything you need to know about setting up and using Lara Anchor</p>
+			</div>
+
+			<!-- Table of Contents -->
+			<div class="mb-16 p-8 bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-800 rounded-2xl">
+				<h2 class="text-2xl font-bold text-white mb-6">Table of Contents</h2>
+				<div class="grid md:grid-cols-2 gap-3">
+					<a href="#installation" class="block text-purple-400 hover:text-purple-300 transition">1. Installation</a>
+					<a href="#project-structure" class="block text-purple-400 hover:text-purple-300 transition">2. Project Structure</a>
+					<a href="#configuration" class="block text-purple-400 hover:text-purple-300 transition">3. Configuration</a>
+					<a href="#commands" class="block text-purple-400 hover:text-purple-300 transition">4. Common Commands</a>
+					<a href="#development" class="block text-purple-400 hover:text-purple-300 transition">5. Development Workflow</a>
+					<a href="#troubleshooting" class="block text-purple-400 hover:text-purple-300 transition">6. Troubleshooting</a>
+					<a href="#faq" class="block text-purple-400 hover:text-purple-300 transition">7. FAQ</a>
+				</div>
+			</div>
+
+			<!-- Installation -->
+			<section id="installation" class="mb-20">
+				<h2 class="text-3xl font-bold text-white mb-8">1. Installation</h2>
+				
+				<div class="space-y-8">
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<h3 class="text-xl font-bold text-white mb-4">Prerequisites</h3>
+						<p class="text-gray-400 mb-4">Before you begin, make sure you have:</p>
+						<ul class="space-y-2 text-gray-400">
+							<li class="flex items-start gap-2">
+								<svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+								</svg>
+								<span><strong>Docker Desktop</strong> installed (includes docker and docker-compose)</span>
+							</li>
+							<li class="flex items-start gap-2">
+								<svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+								</svg>
+								<span><strong>Git</strong> installed on your system</span>
+							</li>
+							<li class="flex items-start gap-2">
+								<svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+								</svg>
+								<span><strong>4GB+ RAM</strong> available for Docker containers</span>
+							</li>
+							<li class="flex items-start gap-2">
+								<svg class="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+								</svg>
+								<span>A code editor (VS Code recommended)</span>
+							</li>
+						</ul>
+					</div>
+
+					<div class="p-6 bg-gradient-to-br from-green-900/20 to-emerald-900/20 border border-green-800 rounded-2xl">
+						<h3 class="text-xl font-bold text-white mb-4">One-Command Installation</h3>
+						<div class="bg-gray-900 text-green-400 p-4 rounded-xl font-mono text-sm overflow-x-auto mb-3">
+curl -s https://lara-anchor.netlify.app/install.sh | bash
+						</div>
+						<p class="text-gray-300 text-sm">This downloads and extracts the latest Lara Anchor template automatically.</p>
+					</div>
+
+					<div>
+						<h3 class="text-2xl font-bold text-white mb-6">Step-by-Step Setup</h3>
+						<div class="space-y-4">
+							<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+								<div class="flex items-center gap-3 mb-3">
+									<div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
+									<p class="font-semibold text-white">Clone the Repository</p>
+								</div>
+								<div class="bg-gray-800 text-gray-100 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+git clone https://github.com/yourusername/lara-anchor.git<br>cd lara-anchor
+								</div>
+							</div>
+
+							<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+								<div class="flex items-center gap-3 mb-3">
+									<div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
+									<p class="font-semibold text-white">Create Environment File</p>
+								</div>
+								<div class="bg-gray-800 text-gray-100 p-4 rounded-xl font-mono text-sm overflow-x-auto mb-3">
+cp .env.example .env
+								</div>
+								<p class="text-gray-400 text-sm">Update the database credentials in <code class="bg-gray-700 px-2 py-1 rounded">.env</code></p>
+							</div>
+
+							<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+								<div class="flex items-center gap-3 mb-3">
+									<div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
+									<p class="font-semibold text-white">Start Containers</p>
+								</div>
+								<div class="bg-gray-800 text-gray-100 p-4 rounded-xl font-mono text-sm overflow-x-auto mb-3">
+docker-compose up -d
+								</div>
+								<p class="text-gray-400 text-sm">This starts PHP 8.5, MySQL 8.3, and optional Node 22 containers.</p>
+							</div>
+
+							<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+								<div class="flex items-center gap-3 mb-3">
+									<div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">4</div>
+									<p class="font-semibold text-white">Install Dependencies</p>
+								</div>
+								<div class="bg-gray-800 text-gray-100 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+docker-compose exec app composer install
+								</div>
+							</div>
+
+							<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+								<div class="flex items-center gap-3 mb-3">
+									<div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">5</div>
+									<p class="font-semibold text-white">Generate Application Key</p>
+								</div>
+								<div class="bg-gray-800 text-gray-100 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+docker-compose exec app php artisan key:generate
+								</div>
+							</div>
+
+							<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+								<div class="flex items-center gap-3 mb-3">
+									<div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">6</div>
+									<p class="font-semibold text-white">Run Database Migrations</p>
+								</div>
+								<div class="bg-gray-800 text-gray-100 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+docker-compose exec app php artisan migrate
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="p-6 bg-gradient-to-br from-green-900/20 to-emerald-900/20 border border-green-800 rounded-2xl">
+						<p class="text-gray-300"><strong>✓ Done!</strong> Your Laravel application is now running on <a href="http://localhost:8000" class="text-green-400 font-semibold hover:underline">http://localhost:8000</a></p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Project Structure -->
+			<section id="project-structure" class="mb-20">
+				<h2 class="text-3xl font-bold text-white mb-8">2. Project Structure</h2>
+				
+				<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+					<div class="font-mono text-sm text-gray-300 space-y-1 overflow-x-auto">
+<span class="text-gray-400">lara-anchor/</span><br>
+<span class="text-gray-400">├── templates/</span><br>
+<span class="text-gray-400">│   ├── docker-compose.yml       <span class="text-purple-400"># Main orchestration file</span></span><br>
+<span class="text-gray-400">│   └── docker/</span><br>
+<span class="text-gray-400">│       ├── php/</span><br>
+<span class="text-gray-400">│       │   └── Dockerfile       <span class="text-purple-400"># PHP 8.5 CLI image</span></span><br>
+<span class="text-gray-400">│       └── node/</span><br>
+<span class="text-gray-400">│           └── Dockerfile       <span class="text-purple-400"># Node 22 image for assets</span></span><br>
+<span class="text-gray-400">├── index.html                   <span class="text-purple-400"># Landing page</span></span><br>
+<span class="text-gray-400">├── guide.html                   <span class="text-purple-400"># This guide</span></span><br>
+<span class="text-gray-400">├── .env.example                 <span class="text-purple-400"># Example environment file</span></span><br>
+<span class="text-gray-400">└── README.md                    <span class="text-purple-400"># Project documentation</span></span>
+					</div>
+				</div>
+
+				<p class="text-gray-400 mt-6">The actual Laravel application code goes in the project root. The <code class="bg-gray-800 px-2 py-1 rounded">templates/</code> folder contains Docker configuration files.</p>
+			</section>
+
+			<!-- Configuration -->
+			<section id="configuration" class="mb-20">
+				<h2 class="text-3xl font-bold text-white mb-8">3. Configuration</h2>
+				
+				<div class="space-y-6">
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<h3 class="text-xl font-bold text-white mb-4">Environment Variables (.env)</h3>
+						<p class="text-gray-400 mb-4">Key environment variables for Docker configuration:</p>
+						<div class="bg-gray-800 p-4 rounded-xl font-mono text-sm overflow-x-auto">
+<span class="text-gray-300">APP_MEM_LIMIT=256m              <span class="text-gray-500"># Memory limit for PHP container</span></span><br>
+<span class="text-gray-300">DB_MEM_LIMIT=512m               <span class="text-gray-500"># Memory limit for MySQL</span></span><br>
+<span class="text-gray-300">MYSQL_DATABASE=laravel          <span class="text-gray-500"># Database name</span></span><br>
+<span class="text-gray-300">MYSQL_USER=laravel              <span class="text-gray-500"># Database user</span></span><br>
+<span class="text-gray-300">MYSQL_PASSWORD=secret           <span class="text-gray-500"># Database password</span></span><br>
+<span class="text-gray-300">MYSQL_ROOT_PASSWORD=root        <span class="text-gray-500"># MySQL root password</span></span>
+						</div>
+					</div>
+
+					<div class="p-6 bg-gradient-to-br from-yellow-900/20 to-orange-900/20 border border-yellow-800 rounded-2xl">
+						<p class="text-gray-300"><strong>⚠️ Note:</strong> Always use strong passwords in production. Update MYSQL_PASSWORD and MYSQL_ROOT_PASSWORD.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Commands -->
+			<section id="commands" class="mb-20">
+				<h2 class="text-3xl font-bold text-white mb-8">4. Common Commands</h2>
+				
+				<div class="grid md:grid-cols-2 gap-4">
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<p class="font-semibold text-white mb-3">Start Containers</p>
+						<div class="bg-gray-800 text-gray-100 p-3 rounded-xl font-mono text-sm overflow-x-auto">
+docker-compose up -d
+						</div>
+					</div>
+
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<p class="font-semibold text-white mb-3">Stop Containers</p>
+						<div class="bg-gray-800 text-gray-100 p-3 rounded-xl font-mono text-sm overflow-x-auto">
+docker-compose down
+						</div>
+					</div>
+
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<p class="font-semibold text-white mb-3">View Logs</p>
+						<div class="bg-gray-800 text-gray-100 p-3 rounded-xl font-mono text-sm overflow-x-auto">
+docker-compose logs -f app
+						</div>
+					</div>
+
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<p class="font-semibold text-white mb-3">Run Artisan Commands</p>
+						<div class="bg-gray-800 text-gray-100 p-3 rounded-xl font-mono text-sm overflow-x-auto">
+docker-compose exec app php artisan &lt;command&gt;
+						</div>
+					</div>
+
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<p class="font-semibold text-white mb-3">Run Composer</p>
+						<div class="bg-gray-800 text-gray-100 p-3 rounded-xl font-mono text-sm overflow-x-auto">
+docker-compose exec app composer &lt;command&gt;
+						</div>
+					</div>
+
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<p class="font-semibold text-white mb-3">Access Database</p>
+						<div class="bg-gray-800 text-gray-100 p-3 rounded-xl font-mono text-sm overflow-x-auto">
+docker-compose exec mysql mysql -u laravel -p laravel
+						</div>
+					</div>
+
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<p class="font-semibold text-white mb-3">Rebuild Containers</p>
+						<div class="bg-gray-800 text-gray-100 p-3 rounded-xl font-mono text-sm overflow-x-auto">
+docker-compose up -d --build
+						</div>
+					</div>
+
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<p class="font-semibold text-white mb-3">Run Node Commands</p>
+						<div class="bg-gray-800 text-gray-100 p-3 rounded-xl font-mono text-sm overflow-x-auto">
+docker-compose --profile dev up -d<br>docker-compose exec node npm install
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Development -->
+			<section id="development" class="mb-20">
+				<h2 class="text-3xl font-bold text-white mb-8">5. Development Workflow</h2>
+				
+				<div class="space-y-4">
+					<div class="p-6 bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-800 rounded-2xl">
+						<p class="font-semibold text-white mb-2">File Synchronization</p>
+						<p class="text-gray-300">Your Laravel project files are mounted as volumes. Changes are instantly reflected in the container without rebuilds.</p>
+					</div>
+
+					<div class="p-6 bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-800 rounded-2xl">
+						<p class="font-semibold text-white mb-3">Debug Mode</p>
+						<p class="text-gray-300 mb-3">Enable debug mode in your <code class="bg-gray-700 px-2 py-1 rounded">.env</code> file:</p>
+						<div class="bg-gray-800 p-3 rounded-xl font-mono text-sm">
+APP_DEBUG=true
+						</div>
+					</div>
+
+					<div class="p-6 bg-gradient-to-br from-blue-900/20 to-cyan-900/20 border border-blue-800 rounded-2xl">
+						<p class="font-semibold text-white mb-3">Database Access</p>
+						<p class="text-gray-300 mb-3">Connect to MySQL using a GUI client or command line:</p>
+						<ul class="space-y-2 text-gray-300 text-sm">
+							<li><strong>Host:</strong> localhost</li>
+							<li><strong>Port:</strong> 3306</li>
+							<li><strong>User:</strong> laravel (or root)</li>
+							<li><strong>Password:</strong> secret (check .env)</li>
+							<li><strong>Database:</strong> laravel</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<!-- Troubleshooting -->
+			<section id="troubleshooting" class="mb-20">
+				<h2 class="text-3xl font-bold text-white mb-8">6. Troubleshooting</h2>
+				
+				<div class="space-y-4">
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<h3 class="text-lg font-bold text-white mb-3">Port Already in Use</h3>
+						<p class="text-gray-400 mb-2"><strong>Problem:</strong> Port 8000 is already in use.</p>
+						<p class="text-gray-400 mb-3"><strong>Solution:</strong> Change the port in docker-compose.yml or kill the process:</p>
+						<div class="bg-gray-800 text-gray-100 p-3 rounded-xl font-mono text-sm overflow-x-auto">
+lsof -i :8000<br>kill -9 &lt;PID&gt;
+						</div>
+					</div>
+
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<h3 class="text-lg font-bold text-white mb-3">Database Connection Error</h3>
+						<p class="text-gray-400 mb-2"><strong>Problem:</strong> Can't connect to MySQL.</p>
+						<p class="text-gray-400 mb-3"><strong>Solution:</strong> Ensure MySQL container is running:</p>
+						<div class="bg-gray-800 text-gray-100 p-3 rounded-xl font-mono text-sm overflow-x-auto">
+docker-compose ps
+						</div>
+					</div>
+
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<h3 class="text-lg font-bold text-white mb-3">Permission Denied Errors</h3>
+						<p class="text-gray-400 mb-2"><strong>Problem:</strong> Cannot write to storage/ or bootstrap/ directories.</p>
+						<p class="text-gray-400 mb-3"><strong>Solution:</strong> Run the container with proper permissions:</p>
+						<div class="bg-gray-800 text-gray-100 p-3 rounded-xl font-mono text-sm overflow-x-auto">
+docker-compose exec app chmod -R 777 storage bootstrap/cache
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- FAQ -->
+			<section id="faq" class="mb-20">
+				<h2 class="text-3xl font-bold text-white mb-8">7. Frequently Asked Questions</h2>
+				
+				<div class="space-y-4">
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<p class="font-semibold text-white mb-2">Q: Why no Nginx?</p>
+						<p class="text-gray-400">A: Laravel's built-in development server (php artisan serve) is sufficient for development and removes unnecessary complexity. For production, you'd want Nginx, but that's not the focus of this lightweight starter.</p>
+					</div>
+
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<p class="font-semibold text-white mb-2">Q: Why no Redis?</p>
+						<p class="text-gray-400">A: We've removed Redis to keep the setup lightweight. If you need caching or queues, you can easily add it to docker-compose.yml. Most Laravel apps don't require it in development.</p>
+					</div>
+
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<p class="font-semibold text-white mb-2">Q: Can I use this in production?</p>
+						<p class="text-gray-400">A: This is designed for development. For production, consider adding Nginx, a reverse proxy, proper logging, and security configurations.</p>
+					</div>
+
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<p class="font-semibold text-white mb-2">Q: How do I add Redis if I need it?</p>
+						<p class="text-gray-400">A: Add a Redis service to docker-compose.yml and configure Laravel's CACHE_DRIVER and QUEUE_CONNECTION in .env</p>
+					</div>
+
+					<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
+						<p class="font-semibold text-white mb-2">Q: Can I modify memory limits?</p>
+						<p class="text-gray-400">A: Yes! Update APP_MEM_LIMIT, DB_MEM_LIMIT in .env, or edit the mem_limit values in docker-compose.yml directly.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Support -->
+			<div class="p-8 bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-800 rounded-2xl text-center">
+				<h2 class="text-2xl font-bold text-white mb-3">Need Help?</h2>
+				<p class="text-gray-400 mb-6">Check the troubleshooting section or review the official Laravel and Docker documentation.</p>
+				<a href="index.html" class="inline-flex items-center gap-2 text-purple-400 font-semibold hover:underline">
+					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+					</svg>
+					Back to Home
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<footer class="py-16 px-6 border-t border-gray-800">
+		<div class="max-w-7xl mx-auto text-center">
+			<p class="text-gray-400 mb-2">⚓ Lara Anchor — Lightweight Docker for Laravel</p>
+			<p class="text-gray-500 text-sm">Made with ❤️ for Laravel developers</p>
+		</div>
+	</footer>
+
+	<script>
+		// Smooth scrolling for nav links
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				e.preventDefault();
+				const target = document.querySelector(this.getAttribute('href'));
+				if (target) {
+					target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>
