@@ -63,15 +63,14 @@
 			<!-- Table of Contents -->
 			<div class="mb-16 p-8 bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-800 rounded-2xl">
 				<h2 class="text-2xl font-bold text-white mb-6">Table of Contents</h2>
-				<div class="grid md:grid-cols-2 gap-3">
-					<a href="#installation" class="block text-purple-400 hover:text-purple-300 transition">1. Installation</a>
-					<a href="#project-structure" class="block text-purple-400 hover:text-purple-300 transition">2. Project Structure</a>
-					<a href="#configuration" class="block text-purple-400 hover:text-purple-300 transition">3. Configuration</a>
-					<a href="#commands" class="block text-purple-400 hover:text-purple-300 transition">4. Common Commands</a>
-					<a href="#development" class="block text-purple-400 hover:text-purple-300 transition">5. Development Workflow</a>
-					<a href="#troubleshooting" class="block text-purple-400 hover:text-purple-300 transition">6. Troubleshooting</a>
-					<a href="#faq" class="block text-purple-400 hover:text-purple-300 transition">7. FAQ</a>
-				</div>
+                <div class="grid md:grid-cols-2 gap-3">
+                    <a href="#installation" class="block text-purple-400 hover:text-purple-300 transition">1. Installation</a>
+                    <a href="#configuration" class="block text-purple-400 hover:text-purple-300 transition">2. Configuration</a>
+                    <a href="#commands" class="block text-purple-400 hover:text-purple-300 transition">3. Common Commands</a>
+                    <a href="#development" class="block text-purple-400 hover:text-purple-300 transition">4. Development Workflow</a>
+                    <a href="#troubleshooting" class="block text-purple-400 hover:text-purple-300 transition">5. Troubleshooting</a>
+                    <a href="#faq" class="block text-purple-400 hover:text-purple-300 transition">6. FAQ</a>
+                </div>
 			</div>
 
 			<!-- Installation -->
@@ -189,30 +188,6 @@ docker-compose exec app php artisan migrate
 						<p class="text-gray-300"><strong>✓ Done!</strong> Your Laravel application is now running on <a href="http://localhost:8000" class="text-green-400 font-semibold hover:underline">http://localhost:8000</a></p>
 					</div>
 				</div>
-			</section>
-
-			<!-- Project Structure -->
-			<section id="project-structure" class="mb-20">
-				<h2 class="text-3xl font-bold text-white mb-8">2. Project Structure</h2>
-				
-				<div class="p-6 bg-gray-900 rounded-2xl border border-gray-800">
-					<div class="font-mono text-sm text-gray-300 space-y-1 overflow-x-auto">
-<span class="text-gray-400">lara-anchor/</span><br>
-<span class="text-gray-400">├── templates/</span><br>
-<span class="text-gray-400">│   ├── docker-compose.yml       <span class="text-purple-400"># Main orchestration file</span></span><br>
-<span class="text-gray-400">│   └── docker/</span><br>
-<span class="text-gray-400">│       ├── php/</span><br>
-<span class="text-gray-400">│       │   └── Dockerfile       <span class="text-purple-400"># PHP 8.5 CLI image</span></span><br>
-<span class="text-gray-400">│       └── node/</span><br>
-<span class="text-gray-400">│           └── Dockerfile       <span class="text-purple-400"># Node 22 image for assets</span></span><br>
-<span class="text-gray-400">├── index.html                   <span class="text-purple-400"># Landing page</span></span><br>
-<span class="text-gray-400">├── guide.html                   <span class="text-purple-400"># This guide</span></span><br>
-<span class="text-gray-400">├── .env.example                 <span class="text-purple-400"># Example environment file</span></span><br>
-<span class="text-gray-400">└── README.md                    <span class="text-purple-400"># Project documentation</span></span>
-					</div>
-				</div>
-
-				<p class="text-gray-400 mt-6">The actual Laravel application code goes in the project root. The <code class="bg-gray-800 px-2 py-1 rounded">templates/</code> folder contains Docker configuration files.</p>
 			</section>
 
 			<!-- Configuration -->
