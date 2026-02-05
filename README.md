@@ -28,56 +28,7 @@ curl -s https://lara-anchor.netlify.app/install.sh | bash
 
 This downloads and extracts the latest Lara Anchor template automatically.
 
-### Manual Setup
 
-```bash
-# 1. Clone the repository
-git clone https://github.com/yourusername/lara-anchor.git
-cd lara-anchor
-
-# 2. Copy environment file and update credentials
-cp .env.example .env
-
-# 3. Start Docker containers
-docker-compose up -d
-
-# 4. Install Composer dependencies
-docker-compose exec app composer install
-
-# 5. Generate application key
-docker-compose exec app php artisan key:generate
-
-# 6. Run database migrations
-docker-compose exec app php artisan migrate
-
-# 7. Visit your app
-# Open http://localhost:8000 in your browser
-```
-
-Done! Your Laravel app is now running. 🎉
-
----
-
-## 📁 Project Structure
-
-```
-lara-anchor/
-├── templates/
-│   ├── docker-compose.yml          # Main orchestration file
-│   └── docker/
-│       ├── php/
-│       │   └── Dockerfile          # PHP 8.5 CLI image
-│       └── node/
-│           └── Dockerfile          # Node 22 image (optional)
-├── index.html                      # Landing page (with dark mode & SEO)
-├── guide.html                      # Complete setup guide
-├── .env.example                    # Example environment file
-└── README.md                       # This file
-
-# Your Laravel app code goes here (alongside docker-compose.yml)
-```
-
----
 
 ## ⚙️ Highly Customizable
 
@@ -287,58 +238,7 @@ docker-compose exec app php artisan cache:clear
 docker-compose up -d --build
 ```
 
----
 
-## ❓ FAQ
-
-**Q: Can I use this in production?**  
-A: No, this is designed for development. For production, add Nginx, SSL, proper logging, and security configurations.
-
-**Q: Why no Nginx?**  
-A: Laravel's built-in server (php artisan serve) is perfect for development and keeps this lightweight. Nginx adds unnecessary complexity for local development.
-
-**Q: Why no Redis?**  
-A: Most Laravel development doesn't need Redis. If you do, add it to docker-compose.yml.
-
-**Q: Is Lara Anchor customizable?**  
-A: Absolutely! It's highly customizable. Modify Dockerfiles, docker-compose.yml, memory limits, add services, change configurations—everything is yours to control.
-
-**Q: How do I add Redis?**  
-A: Add this to `docker-compose.yml`:
-```yaml
-redis:
-  image: redis:alpine
-  container_name: laravel_redis
-```
-
-Then in `.env`:
-```env
-CACHE_DRIVER=redis
-QUEUE_CONNECTION=redis
-```
-
-**Q: Can I modify the PHP or Node Dockerfiles?**  
-A: Yes! Edit the files in `templates/docker/php/Dockerfile` or `templates/docker/node/Dockerfile` and rebuild:
-```bash
-docker-compose up -d --build
-```
-
-**Q: Can I add Nginx for production?**  
-A: Yes! Add a Nginx service to docker-compose.yml. Check the [customization guide](#highly-customizable) above.
-
-**Q: How do I run tests?**  
-A: Use artisan test command:
-```bash
-docker-compose exec app php artisan test
-```
-
-**Q: How do I deploy this?**  
-A: This is for local development. For production, use the provided Dockerfiles as a base and add proper configuration for your hosting environment.
-
-**Q: What are the system requirements?**  
-A: Docker Desktop (with at least 4GB RAM), Git, and a code editor. That's it!
-
----
 
 ## 🔗 Resources
 

@@ -433,6 +433,39 @@ docker-compose exec app chmod -R 777 storage bootstrap/cache
 				}
 			});
 		});
+
+		// Add copy button to code blocks
+		document.querySelectorAll('div.bg-gray-800').forEach(codeBlock => {
+			// Skip if already has a copy button
+			if (codeBlock.querySelector('.copy-btn')) return;
+
+			const copyBtn = document.createElement('button');
+			copyBtn.className = 'copy-btn absolute top-2 right-2 bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-sm transition';
+			copyBtn.textContent = 'Copy';
+			copyBtn.style.position = 'absolute';
+			copyBtn.style.top = '0.5rem';
+			copyBtn.style.right = '0.5rem';
+
+			// Make parent position relative
+			codeBlock.style.position = 'relative';
+
+			// Get text content
+			const codeText = codeBlock.textContent.trim();
+
+			copyBtn.addEventListener('click', () => {
+				navigator.clipboard.writeText(codeText).then(() => {
+					const originalText = copyBtn.textContent;
+					copyBtn.textContent = 'Copied!';
+					copyBtn.style.backgroundColor = '#10b981';
+					setTimeout(() => {
+						copyBtn.textContent = originalText;
+						copyBtn.style.backgroundColor = '';
+					}, 2000);
+				});
+			});
+
+			codeBlock.appendChild(copyBtn);
+		});
 	</script>
 </body>
 
