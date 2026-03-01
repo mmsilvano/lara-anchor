@@ -10,7 +10,7 @@ Spin up a full Laravel development stack with **PHP 8.5, MySQL 8.3, and Node.js 
 No bloat. No Redis. No Nginx overhead. Just what you need for Laravel development:
 - ✅ **PHP 8.5 CLI** with php artisan serve (not FPM)
 - ✅ **MySQL 8.3** for your database
-- ✅ **Node.js 22** (optional, via dev profile) for asset compilation
+- ✅ **Node.js 22** (optional, via dev profile) with **pnpm** for asset compilation
 - ✅ **Alpine Linux** for minimal image sizes
 - ✅ **Highly Customizable** - extend with any service you need
 - ❌ No Nginx (use php artisan serve instead)
@@ -158,10 +158,10 @@ docker-compose exec mysql mysql -u root -p -e "your sql commands"
 # Start with Node container
 docker-compose --profile dev up -d
 
-# Run npm commands
-docker-compose exec node npm install
-docker-compose exec node npm run dev
-docker-compose exec node npm run build
+# Run pnpm commands
+docker-compose exec node pnpm install
+docker-compose exec node pnpm dev
+docker-compose exec node pnpm build
 ```
 
 ---

@@ -1,311 +1,771 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Lara Anchor - Lightweight, minimal Laravel Docker starter for development. PHP 8.5, MySQL 8.3, Node.js 22. No Nginx, no Redis. Highly customizable and developer-friendly.">
+	<meta name="description"
+		content="Lara Anchor - Lightweight, minimal Laravel Docker starter for development. PHP 8.5, MySQL 8.3, Node.js 22. No Nginx, no Redis. Highly customizable and developer-friendly.">
 	<meta name="keywords" content="Laravel, Docker, PHP 8.5, MySQL, Docker Compose, Development, Starter, Lightweight">
 	<meta name="author" content="Lara Anchor">
 	<meta name="robots" content="index, follow">
 	<meta property="og:title" content="Lara Anchor - Lightweight Laravel Docker Starter">
-	<meta property="og:description" content="A minimal Docker configuration for Laravel development. No bloat, just PHP, MySQL, and Node.">
+	<meta property="og:description"
+		content="A minimal Docker configuration for Laravel development. No bloat, just PHP, MySQL, and Node.">
 	<meta property="og:type" content="website">
 	<meta property="og:image" content="/favicon.ico">
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:title" content="Lara Anchor - Lightweight Laravel Docker Starter">
-	<meta name="twitter:description" content="Minimal Laravel Docker setup. PHP 8.5, MySQL 8.3, Node 22. Highly customizable.">
+	<meta name="twitter:description"
+		content="Minimal Laravel Docker setup. PHP 8.5, MySQL 8.3, Node 22. Highly customizable.">
 	<title>Lara Anchor - Lightweight Laravel Docker Starter | Development Made Simple</title>
 
 	<!-- Favicon -->
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
 
-	<script src="https://cdn.tailwindcss.com"></script>
+	<!-- Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+		rel="stylesheet">
+
 	<style>
-		@keyframes float {
-			0%, 100% { transform: translateY(0px); }
-			50% { transform: translateY(-20px); }
+		*,
+		*::before,
+		*::after {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
 		}
-		.float-animation {
-			animation: float 4s ease-in-out infinite;
+
+		:root {
+			--bg: #0a0a0a;
+			--bg-elevated: #111111;
+			--bg-surface: #161616;
+			--border: #222222;
+			--border-hover: #333333;
+			--text-primary: #e5e5e5;
+			--text-secondary: #888888;
+			--text-tertiary: #555555;
+			--accent: #ffffff;
+			--code-bg: #0d0d0d;
+			--toast-bg: #1a1a1a;
 		}
-		@keyframes fadeIn {
-			from { opacity: 0; transform: translateY(20px); }
-			to { opacity: 1; transform: translateY(0); }
-		}
-		.fade-in {
-			animation: fadeIn 0.6s ease-out forwards;
-		}
-		@keyframes godlyPop {
-			0% {
-				opacity: 0;
-				transform: scale(0.3) translateY(100px);
-				filter: blur(10px);
-			}
-			50% {
-				opacity: 1;
-				transform: scale(1.1) translateY(0);
-			}
-			70% {
-				transform: scale(0.95) translateY(-10px);
-			}
-			100% {
-				transform: scale(1) translateY(0);
-			}
-		}
-		@keyframes godlyGlow {
-			0%, 100% { box-shadow: 0 0 20px rgba(129, 140, 248, 0.5), 0 0 40px rgba(192, 132, 252, 0.3); }
-			50% { box-shadow: 0 0 30px rgba(129, 140, 248, 0.8), 0 0 60px rgba(192, 132, 252, 0.6), inset 0 0 20px rgba(129, 140, 248, 0.2); }
-		}
-		@keyframes godlyFade {
-			0% { opacity: 1; }
-			85% { opacity: 1; }
-			100% { opacity: 0; transform: scale(0.8); }
-		}
-		.toast {
-			position: fixed;
-			bottom: 30px;
-			right: 30px;
-			background: linear-gradient(135deg, rgba(129, 140, 248, 0.9) 0%, rgba(192, 132, 252, 0.9) 100%);
-			color: white;
-			padding: 16px 24px;
-			border-radius: 12px;
-			font-weight: 600;
-			font-size: 16px;
-			display: flex;
-			align-items: center;
-			gap: 10px;
-			animation: godlyPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), godlyGlow 1.5s ease-in-out, godlyFade 3s ease-out 1.5s forwards;
-			box-shadow: 0 0 20px rgba(129, 140, 248, 0.5), 0 0 40px rgba(192, 132, 252, 0.3);
-			backdrop-filter: blur(10px);
-			border: 1px solid rgba(255, 255, 255, 0.2);
-			z-index: 9999;
-		}
+
 		html {
 			scroll-behavior: smooth;
 		}
-		.glass {
-			background: rgba(17, 24, 39, 0.7);
-			backdrop-filter: blur(10px);
-			-webkit-backdrop-filter: blur(10px);
+
+		body {
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+			background: var(--bg);
+			color: var(--text-primary);
+			line-height: 1.6;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
 		}
-		.gradient-text {
-			background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			background-clip: text;
+
+		/* ─── Layout ─── */
+		.container {
+			max-width: 1120px;
+			margin: 0 auto;
+			padding: 0 24px;
+		}
+
+		/* ─── Navigation ─── */
+		nav {
+			position: fixed;
+			top: 0;
+			width: 100%;
+			z-index: 100;
+			background: rgba(10, 10, 10, 0.8);
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			border-bottom: 1px solid var(--border);
+		}
+
+		.nav-inner {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 16px 0;
+		}
+
+		.logo {
+			font-size: 18px;
+			font-weight: 700;
+			color: var(--accent);
+			text-decoration: none;
+			letter-spacing: -0.02em;
+		}
+
+		.nav-links {
+			display: flex;
+			align-items: center;
+			gap: 32px;
+		}
+
+		.nav-links a {
+			font-size: 14px;
+			font-weight: 500;
+			color: var(--text-secondary);
+			text-decoration: none;
+			transition: color 0.2s;
+		}
+
+		.nav-links a:hover {
+			color: var(--text-primary);
+		}
+
+		.btn-primary {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			padding: 10px 20px;
+			background: var(--accent);
+			color: var(--bg);
+			border: none;
+			border-radius: 8px;
+			font-size: 14px;
+			font-weight: 600;
+			font-family: inherit;
+			text-decoration: none;
+			cursor: pointer;
+			transition: opacity 0.2s;
+		}
+
+		.btn-primary:hover {
+			opacity: 0.85;
+		}
+
+		.btn-secondary {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			padding: 10px 20px;
+			background: transparent;
+			color: var(--text-primary);
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			font-size: 14px;
+			font-weight: 600;
+			font-family: inherit;
+			text-decoration: none;
+			cursor: pointer;
+			transition: border-color 0.2s;
+		}
+
+		.btn-secondary:hover {
+			border-color: var(--text-secondary);
+		}
+
+		/* ─── Hero ─── */
+		.hero {
+			padding: 160px 0 120px;
+			text-align: center;
+		}
+
+		.hero-badge {
+			display: inline-block;
+			padding: 6px 14px;
+			background: var(--bg-elevated);
+			border: 1px solid var(--border);
+			border-radius: 100px;
+			font-size: 13px;
+			font-weight: 500;
+			color: var(--text-secondary);
+			margin-bottom: 32px;
+			letter-spacing: 0.01em;
+		}
+
+		.hero h1 {
+			font-size: clamp(40px, 6vw, 64px);
+			font-weight: 800;
+			line-height: 1.1;
+			letter-spacing: -0.03em;
+			color: var(--accent);
+			margin-bottom: 20px;
+		}
+
+		.hero h1 span {
+			color: var(--text-tertiary);
+		}
+
+		.hero p {
+			font-size: 18px;
+			color: var(--text-secondary);
+			max-width: 540px;
+			margin: 0 auto 40px;
+			line-height: 1.7;
+		}
+
+		.hero-actions {
+			display: flex;
+			gap: 12px;
+			justify-content: center;
+			flex-wrap: wrap;
+		}
+
+		/* ─── Features ─── */
+		.features {
+			padding: 100px 0;
+			border-top: 1px solid var(--border);
+		}
+
+		.section-label {
+			font-size: 13px;
+			font-weight: 600;
+			color: var(--text-tertiary);
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			margin-bottom: 12px;
+		}
+
+		.section-title {
+			font-size: clamp(28px, 4vw, 36px);
+			font-weight: 700;
+			letter-spacing: -0.02em;
+			color: var(--text-primary);
+			margin-bottom: 12px;
+		}
+
+		.section-desc {
+			font-size: 16px;
+			color: var(--text-secondary);
+			max-width: 480px;
+			line-height: 1.7;
+		}
+
+		.features-header {
+			margin-bottom: 60px;
+		}
+
+		.features-grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1px;
+			background: var(--border);
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			overflow: hidden;
+		}
+
+		.feature-card {
+			background: var(--bg);
+			padding: 32px;
+			transition: background 0.2s;
+		}
+
+		.feature-card:hover {
+			background: var(--bg-elevated);
+		}
+
+		.feature-icon {
+			width: 40px;
+			height: 40px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: var(--bg-surface);
+			border: 1px solid var(--border);
+			border-radius: 10px;
+			margin-bottom: 20px;
+			font-size: 18px;
+		}
+
+		.feature-card h3 {
+			font-size: 16px;
+			font-weight: 600;
+			color: var(--text-primary);
+			margin-bottom: 8px;
+		}
+
+		.feature-card p {
+			font-size: 14px;
+			color: var(--text-secondary);
+			line-height: 1.6;
+		}
+
+		/* ─── Stack ─── */
+		.stack {
+			padding: 100px 0;
+			border-top: 1px solid var(--border);
+		}
+
+		.stack-header {
+			margin-bottom: 60px;
+		}
+
+		.stack-grid {
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			gap: 16px;
+		}
+
+		.stack-item {
+			text-align: center;
+			padding: 28px 16px;
+			background: var(--bg-elevated);
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			transition: border-color 0.2s;
+		}
+
+		.stack-item:hover {
+			border-color: var(--border-hover);
+		}
+
+		.stack-item .icon {
+			font-size: 28px;
+			margin-bottom: 12px;
+		}
+
+		.stack-item h3 {
+			font-size: 14px;
+			font-weight: 600;
+			color: var(--text-primary);
+			margin-bottom: 4px;
+		}
+
+		.stack-item p {
+			font-size: 12px;
+			color: var(--text-tertiary);
+		}
+
+		/* ─── Getting Started ─── */
+		.getting-started {
+			padding: 100px 0;
+			border-top: 1px solid var(--border);
+		}
+
+		.getting-started-header {
+			margin-bottom: 60px;
+		}
+
+		/* Install command */
+		.install-block {
+			margin-bottom: 48px;
+			padding: 24px;
+			background: var(--bg-elevated);
+			border: 1px solid var(--border);
+			border-radius: 12px;
+		}
+
+		.install-block-label {
+			font-size: 13px;
+			font-weight: 600;
+			color: var(--text-secondary);
+			text-transform: uppercase;
+			letter-spacing: 0.06em;
+			margin-bottom: 12px;
+		}
+
+		.install-row {
+			display: flex;
+			gap: 8px;
+			align-items: stretch;
+		}
+
+		.code-block {
+			flex: 1;
+			padding: 14px 16px;
+			background: var(--code-bg);
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 13px;
+			color: var(--text-primary);
+			overflow-x: auto;
+			white-space: nowrap;
+		}
+
+		.copy-btn {
+			padding: 14px 18px;
+			background: var(--bg-surface);
+			color: var(--text-secondary);
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			font-size: 13px;
+			font-weight: 500;
+			font-family: inherit;
+			cursor: pointer;
+			white-space: nowrap;
+			transition: color 0.2s, border-color 0.2s;
+		}
+
+		.copy-btn:hover {
+			color: var(--text-primary);
+			border-color: var(--border-hover);
+		}
+
+		/* Steps */
+		.steps {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+		}
+
+		.step {
+			display: flex;
+			gap: 20px;
+			padding: 24px;
+			background: var(--bg-elevated);
+			border: 1px solid var(--border);
+			border-radius: 12px;
+		}
+
+		.step-number {
+			flex-shrink: 0;
+			width: 32px;
+			height: 32px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: var(--bg-surface);
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			font-size: 13px;
+			font-weight: 700;
+			color: var(--text-secondary);
+		}
+
+		.step-content h3 {
+			font-size: 15px;
+			font-weight: 600;
+			color: var(--text-primary);
+			margin-bottom: 6px;
+		}
+
+		.step-content p {
+			font-size: 14px;
+			color: var(--text-secondary);
+			margin-bottom: 12px;
+		}
+
+		.step-code {
+			padding: 12px 14px;
+			background: var(--code-bg);
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 13px;
+			color: var(--text-primary);
+			overflow-x: auto;
+		}
+
+		/* ─── Footer ─── */
+		footer {
+			padding: 60px 0;
+			border-top: 1px solid var(--border);
+		}
+
+		.footer-inner {
+			display: flex;
+			justify-content: space-between;
+			align-items: start;
+		}
+
+		.footer-brand p {
+			font-size: 14px;
+			color: var(--text-tertiary);
+			margin-top: 8px;
+			max-width: 320px;
+		}
+
+		.footer-links {
+			display: flex;
+			gap: 60px;
+		}
+
+		.footer-col h4 {
+			font-size: 13px;
+			font-weight: 600;
+			color: var(--text-secondary);
+			margin-bottom: 16px;
+			text-transform: uppercase;
+			letter-spacing: 0.06em;
+		}
+
+		.footer-col a {
+			display: block;
+			font-size: 14px;
+			color: var(--text-tertiary);
+			text-decoration: none;
+			margin-bottom: 10px;
+			transition: color 0.2s;
+		}
+
+		.footer-col a:hover {
+			color: var(--text-primary);
+		}
+
+		.footer-bottom {
+			margin-top: 48px;
+			padding-top: 24px;
+			border-top: 1px solid var(--border);
+			text-align: center;
+			font-size: 13px;
+			color: var(--text-tertiary);
+		}
+
+		/* ─── Toast ─── */
+		.toast {
+			position: fixed;
+			bottom: 24px;
+			right: 24px;
+			padding: 14px 20px;
+			background: var(--toast-bg);
+			color: var(--text-primary);
+			border: 1px solid var(--border);
+			border-radius: 10px;
+			font-size: 14px;
+			font-weight: 500;
+			z-index: 9999;
+			animation: toast-in 0.3s ease-out, toast-out 0.3s ease-in 2s forwards;
+		}
+
+		@keyframes toast-in {
+			from {
+				opacity: 0;
+				transform: translateY(12px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		@keyframes toast-out {
+			from {
+				opacity: 1;
+			}
+
+			to {
+				opacity: 0;
+				transform: translateY(4px);
+			}
+		}
+
+		/* ─── Responsive ─── */
+		@media (max-width: 768px) {
+			.features-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.stack-grid {
+				grid-template-columns: repeat(2, 1fr);
+			}
+
+			.footer-inner {
+				flex-direction: column;
+				gap: 40px;
+			}
+
+			.footer-links {
+				gap: 40px;
+			}
+
+			.nav-links {
+				gap: 20px;
+			}
+
+			.hero {
+				padding: 120px 0 80px;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.stack-grid {
+				grid-template-columns: 1fr 1fr;
+			}
+
+			.hero-actions {
+				flex-direction: column;
+				align-items: center;
+			}
 		}
 	</style>
 </head>
 
-<body class="bg-gray-950 text-gray-100">
-	
+<body>
+
 	<!-- Navigation -->
-	<nav class="fixed w-full glass border-b border-gray-800/50 z-50">
-		<div class="max-w-7xl mx-auto px-6 lg:px-8 py-4">
-			<div class="flex justify-between items-center">
-				<div class="text-2xl font-bold gradient-text">⚓ Lara Anchor</div>
-				<div class="flex gap-8 items-center">
-					<a href="#home" class="text-sm font-medium text-gray-300 hover:text-white transition">Home</a>
-					<a href="#features" class="text-sm font-medium text-gray-300 hover:text-white transition">Features</a>
-					<a href="guide.html" class="text-sm font-medium text-gray-300 hover:text-white transition">Guide</a>
-					<a href="#getting-started" class="px-5 py-2 bg-white text-gray-900 rounded-full text-sm font-semibold hover:opacity-90 transition">Get Started</a>
-				</div>
+	<nav>
+		<div class="container nav-inner">
+			<a href="#home" class="logo">⚓ Lara Anchor</a>
+			<div class="nav-links">
+				<a href="#features">Features</a>
+				<a href="#stack">Stack</a>
+				<a href="guide.html">Guide</a>
+				<a href="#getting-started" class="btn-primary">Get Started</a>
 			</div>
 		</div>
 	</nav>
 
-	<!-- Hero Section -->
-	<section id="home" class="pt-32 pb-20 px-6 min-h-screen flex items-center">
-		<div class="max-w-7xl mx-auto w-full">
-			<div class="grid lg:grid-cols-2 gap-16 items-center">
-				<div class="fade-in">
-					<h1 class="text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-						<span class="gradient-text">Lightweight</span><br>
-						<span class="text-white">Laravel Docker</span>
-					</h1>
-					<p class="text-xl text-gray-400 mb-8 leading-relaxed max-w-xl">
-						A minimal Docker configuration for Laravel development. No bloat—just PHP 8.5, MySQL 8.3, and Node.js 22.
-					</p>
-					<div class="flex gap-4">
-						<a href="#getting-started" class="px-8 py-4 bg-white text-gray-900 rounded-full font-semibold hover:opacity-90 transition inline-flex items-center gap-2">
-							Get Started
-							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-							</svg>
-						</a>
-						<a href="guide.html" class="px-8 py-4 border-2 border-gray-700 text-white rounded-full font-semibold hover:border-white transition">
-							Read Guide
-						</a>
-					</div>
+	<!-- Hero -->
+	<section id="home" class="hero">
+		<div class="container">
+			<div class="hero-badge">Open Source · MIT License</div>
+			<h1>Lightweight<br><span>Laravel Docker</span></h1>
+			<p>A minimal Docker configuration for Laravel development. No bloat — just PHP 8.5, MySQL 8.3, and Node.js
+				22 on Alpine Linux.</p>
+			<div class="hero-actions">
+				<a href="#getting-started" class="btn-primary">
+					Get Started
+					<svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="M13 7l5 5m0 0l-5 5m5-5H6" />
+					</svg>
+				</a>
+				<a href="guide.html" class="btn-secondary">Read the Guide</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Features -->
+	<section id="features" class="features">
+		<div class="container">
+			<div class="features-header">
+				<p class="section-label">Why Lara Anchor</p>
+				<h2 class="section-title">Everything you need, nothing you don't.</h2>
+				<p class="section-desc">Built for developers who value speed and simplicity over kitchen-sink starters.
+				</p>
+			</div>
+			<div class="features-grid">
+				<div class="feature-card">
+					<div class="feature-icon">⚡</div>
+					<h3>Lightweight</h3>
+					<p>Alpine Linux base images for minimal footprint. Boot in seconds, not minutes.</p>
 				</div>
-				<div class="flex justify-center lg:justify-end">
-					<div class="text-9xl float-animation opacity-90">⚓</div>
+				<div class="feature-card">
+					<div class="feature-icon">◎</div>
+					<h3>Focused</h3>
+					<p>No Redis, no Nginx overhead. Just PHP 8.5, MySQL 8.3, and Node.js 22 with pnpm.</p>
+				</div>
+				<div class="feature-card">
+					<div class="feature-icon">⌘</div>
+					<h3>Customizable</h3>
+					<p>Need Redis or Nginx? Add them. Full control over your Docker stack with clean defaults.</p>
+				</div>
+				<div class="feature-card">
+					<div class="feature-icon">↻</div>
+					<h3>Live Reload</h3>
+					<p>Volume-mounted project files. Every code change is instantly reflected — no rebuilds.</p>
+				</div>
+				<div class="feature-card">
+					<div class="feature-icon">⊞</div>
+					<h3>Profiles</h3>
+					<p>Optional Node.js container via Docker profiles. Enable only when you need asset compilation.</p>
+				</div>
+				<div class="feature-card">
+					<div class="feature-icon">⚙</div>
+					<h3>Configurable</h3>
+					<p>Memory limits, database credentials, and ports — all adjustable from a single .env file.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Features Section -->
-	<section id="features" class="py-24 px-6 bg-gray-900/50">
-		<div class="max-w-7xl mx-auto">
-			<div class="text-center mb-16">
-				<h2 class="text-4xl lg:text-5xl font-bold mb-4 gradient-text">Why Lara Anchor?</h2>
-				<p class="text-gray-400 text-lg max-w-2xl mx-auto">Everything you need for Laravel development, nothing you don't.</p>
+	<!-- Stack -->
+	<section id="stack" class="stack">
+		<div class="container">
+			<div class="stack-header">
+				<p class="section-label">Tech Stack</p>
+				<h2 class="section-title">Modern. Current. Maintained.</h2>
+				<p class="section-desc">Latest stable versions of everything. Always up-to-date.</p>
 			</div>
-			<div class="grid md:grid-cols-3 gap-8">
-				<div class="p-8 bg-gray-900 rounded-2xl border border-gray-800 hover:shadow-xl hover:shadow-purple-500/5 transition-all duration-300">
-					<div class="w-12 h-12 bg-purple-900/30 rounded-xl flex items-center justify-center mb-6">
-						<svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-						</svg>
-					</div>
-					<h3 class="text-xl font-bold text-white mb-3">Lightweight</h3>
-					<p class="text-gray-400">Minimal dependencies. Uses Alpine Linux for tiny image sizes and fast boot times.</p>
+			<div class="stack-grid">
+				<div class="stack-item">
+					<div class="icon">🐘</div>
+					<h3>PHP 8.5</h3>
+					<p>CLI Server</p>
 				</div>
-				<div class="p-8 bg-gray-900 rounded-2xl border border-gray-800 hover:shadow-xl hover:shadow-purple-500/5 transition-all duration-300">
-					<div class="w-12 h-12 bg-purple-900/30 rounded-xl flex items-center justify-center mb-6">
-						<svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-						</svg>
-					</div>
-					<h3 class="text-xl font-bold text-white mb-3">Focused</h3>
-					<p class="text-gray-400">No Redis, no unnecessary overhead. Just PHP 8.5, MySQL 8.3, and Node.js 22.</p>
+				<div class="stack-item">
+					<div class="icon">🗄️</div>
+					<h3>MySQL 8.3</h3>
+					<p>Database</p>
 				</div>
-				<div class="p-8 bg-gray-900 rounded-2xl border border-gray-800 hover:shadow-xl hover:shadow-purple-500/5 transition-all duration-300">
-					<div class="w-12 h-12 bg-purple-900/30 rounded-xl flex items-center justify-center mb-6">
-						<svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-						</svg>
-					</div>
-					<h3 class="text-xl font-bold text-white mb-3">Highly Customizable</h3>
-					<p class="text-gray-400">Extend easily. Add Redis, Nginx, or any service. Full control over your stack.</p>
+				<div class="stack-item">
+					<div class="icon">⛰️</div>
+					<h3>Alpine</h3>
+					<p>Base Image</p>
+				</div>
+				<div class="stack-item">
+					<div class="icon">📦</div>
+					<h3>Composer</h3>
+					<p>PHP Deps</p>
+				</div>
+				<div class="stack-item">
+					<div class="icon">🟢</div>
+					<h3>Node 22</h3>
+					<p>pnpm</p>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Tech Stack Section -->
-	<section class="py-24 px-6">
-		<div class="max-w-7xl mx-auto">
-			<div class="text-center mb-16">
-				<h2 class="text-4xl lg:text-5xl font-bold mb-4 gradient-text">Modern Tech Stack</h2>
-				<p class="text-gray-400 text-lg max-w-2xl mx-auto">Latest versions of everything. Always up-to-date with the latest features and security patches.</p>
+	<!-- Getting Started -->
+	<section id="getting-started" class="getting-started">
+		<div class="container" style="max-width: 720px;">
+			<div class="getting-started-header">
+				<p class="section-label">Quick Start</p>
+				<h2 class="section-title">Up and running in minutes.</h2>
+				<p class="section-desc">One command to install, a few more to have a full Laravel stack running locally.
+				</p>
 			</div>
-			<div class="grid grid-cols-2 md:grid-cols-5 gap-6">
-				<div class="text-center p-6 bg-gray-900 rounded-2xl border border-gray-800 hover:shadow-lg transition-all duration-300">
-					<div class="text-5xl mb-4">🐘</div>
-					<h3 class="font-semibold text-white">PHP 8.5</h3>
-					<p class="text-sm text-gray-400 mt-2">Latest CLI</p>
-				</div>
-				<div class="text-center p-6 bg-gray-900 rounded-2xl border border-gray-800 hover:shadow-lg transition-all duration-300">
-					<div class="text-5xl mb-4">🗄️</div>
-					<h3 class="font-semibold text-white">MySQL 8.3</h3>
-					<p class="text-sm text-gray-400 mt-2">Database</p>
-				</div>
-				<div class="text-center p-6 bg-gray-900 rounded-2xl border border-gray-800 hover:shadow-lg transition-all duration-300">
-					<div class="text-5xl mb-4">⛰️</div>
-					<h3 class="font-semibold text-white">Alpine</h3>
-					<p class="text-sm text-gray-400 mt-2">Base Image</p>
-				</div>
-				<div class="text-center p-6 bg-gray-900 rounded-2xl border border-gray-800 hover:shadow-lg transition-all duration-300">
-					<div class="text-5xl mb-4">📦</div>
-					<h3 class="font-semibold text-white">Composer</h3>
-					<p class="text-sm text-gray-400 mt-2">Dependencies</p>
-				</div>
-				<div class="text-center p-6 bg-gray-900 rounded-2xl border border-gray-800 hover:shadow-lg transition-all duration-300">
-					<div class="text-5xl mb-4">🟢</div>
-					<h3 class="font-semibold text-white">Node.js 22</h3>
-					<p class="text-sm text-gray-400 mt-2">Assets & Tools</p>
-				</div>
-			</div>
-		</div>
-	</section>
 
-	<!-- Getting Started Section -->
-	<section id="getting-started" class="py-24 px-6 bg-gray-900/50">
-		<div class="max-w-4xl mx-auto">
-			<div class="text-center mb-16">
-				<h2 class="text-4xl lg:text-5xl font-bold mb-4 gradient-text">Quick Start</h2>
-				<p class="text-gray-400 text-lg">Get up and running in minutes with our automated install script.</p>
-			</div>
-			
-			<div class="mb-12 p-8 bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-purple-800 rounded-2xl">
-				<h3 class="text-xl font-bold text-white mb-4">One-Command Installation</h3>
-				<div class="flex items-center gap-2">
-					<div class="flex-1 bg-gray-900 text-green-400 p-4 rounded-xl font-mono text-sm overflow-x-auto" id="installCommand">
-						curl -s https://lara-anchor.netlify.app/install.sh | bash
-					</div>
-					<button onclick="copyInstallCommand()" class="px-4 py-4 bg-white text-gray-900 rounded-lg font-semibold hover:opacity-90 transition flex-shrink-0 whitespace-nowrap">
-						📋 Copy
-					</button>
+			<div class="install-block">
+				<p class="install-block-label">One-command install</p>
+				<div class="install-row">
+					<div class="code-block" id="installCommand">curl -s https://lara-anchor.netlify.app/install.sh |
+						bash</div>
+					<button class="copy-btn" onclick="copyInstallCommand()">Copy</button>
 				</div>
 			</div>
 
-			<div class="space-y-6">
-				<div class="flex gap-6 p-6 bg-gray-900 rounded-2xl border border-gray-800">
-					<div class="flex-shrink-0">
-						<div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">1</div>
-					</div>
-					<div class="flex-1">
-						<h3 class="text-lg font-bold text-white mb-2">Download & Extract</h3>
-						<p class="text-gray-400 mb-3">The install script downloads the latest Lara Anchor template.</p>
-						<div class="bg-gray-800 text-gray-100 p-4 rounded-xl font-mono text-sm overflow-x-auto">
-curl -L https://lara-anchor.netlify.app/lara-anchor.zip -o lara-anchor.zip<br>unzip lara-anchor.zip && cd lara-anchor
-						</div>
+			<div class="steps">
+				<div class="step">
+					<div class="step-number">1</div>
+					<div class="step-content">
+						<h3>Download & Extract</h3>
+						<p>The install script downloads and extracts the latest template.</p>
+						<div class="step-code">curl -L https://lara-anchor.netlify.app/lara-anchor.zip -o
+							lara-anchor.zip<br>unzip lara-anchor.zip && cd lara-anchor</div>
 					</div>
 				</div>
-
-				<div class="flex gap-6 p-6 bg-gray-900 rounded-2xl border border-gray-800">
-					<div class="flex-shrink-0">
-						<div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">2</div>
-					</div>
-					<div class="flex-1">
-						<h3 class="text-lg font-bold text-white mb-2">Configure Environment</h3>
-						<p class="text-gray-400 mb-3">Create your .env file with database credentials.</p>
-						<div class="bg-gray-800 text-gray-100 p-4 rounded-xl font-mono text-sm overflow-x-auto">
-cp .env.example .env
-						</div>
+				<div class="step">
+					<div class="step-number">2</div>
+					<div class="step-content">
+						<h3>Configure Environment</h3>
+						<p>Create your .env file with database credentials.</p>
+						<div class="step-code">cp .env.example .env</div>
 					</div>
 				</div>
-
-				<div class="flex gap-6 p-6 bg-gray-900 rounded-2xl border border-gray-800">
-					<div class="flex-shrink-0">
-						<div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">3</div>
-					</div>
-					<div class="flex-1">
-						<h3 class="text-lg font-bold text-white mb-2">Start Containers</h3>
-						<p class="text-gray-400 mb-3">Spin up the entire stack in seconds.</p>
-						<div class="bg-gray-800 text-gray-100 p-4 rounded-xl font-mono text-sm overflow-x-auto">
-docker-compose up -d
-						</div>
+				<div class="step">
+					<div class="step-number">3</div>
+					<div class="step-content">
+						<h3>Start Containers</h3>
+						<p>Spin up the entire stack.</p>
+						<div class="step-code">docker compose up -d</div>
 					</div>
 				</div>
-
-				<div class="flex gap-6 p-6 bg-gray-900 rounded-2xl border border-gray-800">
-					<div class="flex-shrink-0">
-						<div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">4</div>
-					</div>
-					<div class="flex-1">
-						<h3 class="text-lg font-bold text-white mb-2">Install Dependencies</h3>
-						<p class="text-gray-400 mb-3">Get Composer packages and run migrations.</p>
-						<div class="bg-gray-800 text-gray-100 p-4 rounded-xl font-mono text-sm overflow-x-auto">
-docker-compose exec app composer install<br>docker-compose exec app php artisan migrate
-						</div>
+				<div class="step">
+					<div class="step-number">4</div>
+					<div class="step-content">
+						<h3>Install Dependencies</h3>
+						<p>Get Composer packages and run migrations.</p>
+						<div class="step-code">docker compose exec app composer install<br>docker compose exec app php
+							artisan migrate</div>
 					</div>
 				</div>
-
-				<div class="flex gap-6 p-6 bg-gray-900 rounded-2xl border border-gray-800">
-					<div class="flex-shrink-0">
-						<div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">5</div>
-					</div>
-					<div class="flex-1">
-						<h3 class="text-lg font-bold text-white mb-2">Start Developing</h3>
-						<p class="text-gray-400 mb-3">Your app is now running locally.</p>
-						<div class="bg-gray-800 text-gray-100 p-4 rounded-xl font-mono text-sm overflow-x-auto">
-http://localhost:8000
-						</div>
+				<div class="step">
+					<div class="step-number">5</div>
+					<div class="step-content">
+						<h3>Start Developing</h3>
+						<p>Your app is now running locally.</p>
+						<div class="step-code">http://localhost:8000</div>
 					</div>
 				</div>
 			</div>
@@ -313,32 +773,30 @@ http://localhost:8000
 	</section>
 
 	<!-- Footer -->
-	<footer class="py-16 px-6 border-t border-gray-800">
-		<div class="max-w-7xl mx-auto">
-			<div class="grid md:grid-cols-4 gap-12 mb-12">
-				<div class="md:col-span-2">
-					<h3 class="text-2xl font-bold gradient-text mb-4">⚓ Lara Anchor</h3>
-					<p class="text-gray-400 max-w-md">Lightweight Laravel Docker starter for developers who value simplicity and performance.</p>
+	<footer>
+		<div class="container">
+			<div class="footer-inner">
+				<div class="footer-brand">
+					<a href="#home" class="logo">⚓ Lara Anchor</a>
+					<p>Lightweight Laravel Docker starter for developers who value simplicity.</p>
 				</div>
-				<div>
-					<h3 class="font-semibold text-white mb-4">Quick Links</h3>
-					<div class="space-y-2">
-						<a href="#home" class="block text-gray-400 hover:text-white transition">Home</a>
-						<a href="guide.html" class="block text-gray-400 hover:text-white transition">Guide</a>
-						<a href="#features" class="block text-gray-400 hover:text-white transition">Features</a>
+				<div class="footer-links">
+					<div class="footer-col">
+						<h4>Navigation</h4>
+						<a href="#home">Home</a>
+						<a href="#features">Features</a>
+						<a href="guide.html">Guide</a>
 					</div>
-				</div>
-				<div>
-					<h3 class="font-semibold text-white mb-4">Resources</h3>
-					<div class="space-y-2">
-						<a href="https://laravel.com" target="_blank" class="block text-gray-400 hover:text-white transition">Laravel Docs</a>
-						<a href="https://docker.com" target="_blank" class="block text-gray-400 hover:text-white transition">Docker Docs</a>
-						<a href="https://github.com" target="_blank" class="block text-gray-400 hover:text-white transition">GitHub</a>
+					<div class="footer-col">
+						<h4>Resources</h4>
+						<a href="https://laravel.com" target="_blank">Laravel Docs</a>
+						<a href="https://docker.com" target="_blank">Docker Docs</a>
+						<a href="https://github.com" target="_blank">GitHub</a>
 					</div>
 				</div>
 			</div>
-			<div class="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
-				<p>Made with ❤️ for Laravel developers • © 2026 Lara Anchor</p>
+			<div class="footer-bottom">
+				<p>© 2026 Lara Anchor · MIT License</p>
 			</div>
 		</div>
 	</footer>
@@ -347,20 +805,22 @@ http://localhost:8000
 		function copyInstallCommand() {
 			const command = 'curl -s https://lara-anchor.netlify.app/install.sh | bash';
 			navigator.clipboard.writeText(command).then(() => {
-				// Show godly toast notification
-				const toast = document.createElement('div');
-				toast.className = 'toast';
-				toast.innerHTML = '✨ Command copied to clipboard!';
-				document.body.appendChild(toast);
-				
-				// Remove toast after animation completes
-				setTimeout(() => {
-					toast.remove();
-				}, 4500);
+				showToast('Copied to clipboard');
 			});
 		}
 
-		// Smooth scrolling for nav links
+		function showToast(message) {
+			const existing = document.querySelector('.toast');
+			if (existing) existing.remove();
+
+			const toast = document.createElement('div');
+			toast.className = 'toast';
+			toast.textContent = message;
+			document.body.appendChild(toast);
+			setTimeout(() => toast.remove(), 2500);
+		}
+
+		// Smooth scrolling
 		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 			anchor.addEventListener('click', function (e) {
 				e.preventDefault();
