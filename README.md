@@ -179,7 +179,7 @@ APP_DEBUG=true
 
 ### Database Access
 Connect using any MySQL client:
-- **Host:** localhost
+- **Host:** mysql
 - **Port:** 3306
 - **User:** laravel
 - **Password:** secret (from .env)

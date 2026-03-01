@@ -124,7 +124,7 @@
 <body class="bg-bg text-primary font-sans leading-relaxed antialiased animate-fade-in">
 
 	<!-- Navigation -->
-	<nav class="fixed top-0 w-full z-[100] bg-[rgba(10,10,10,0.85)] backdrop-blur-xl border-b border-border">
+	<nav class="fixed top-0 w-full z-[200] bg-[rgba(10,10,10,0.85)] backdrop-blur-xl border-b border-border">
 		<div class="max-w-[1120px] mx-auto px-6 flex justify-between items-center py-4">
 			<a href="index.html"
 				class="text-lg font-bold text-accent tracking-tight no-underline transition-opacity duration-200 hover:opacity-75">⚓
@@ -213,7 +213,7 @@
 				<div
 					class="shrink-0 w-7 h-7 flex items-center justify-center bg-surface border border-border rounded-md text-xs font-bold text-secondary">
 					1</div>
-				<div>
+				<div class="min-w-0">
 					<h3 class="text-[15px] font-semibold text-primary mb-1">Clone the Repository</h3>
 					<div
 						class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto leading-[1.7]">
@@ -224,7 +224,7 @@
 				<div
 					class="shrink-0 w-7 h-7 flex items-center justify-center bg-surface border border-border rounded-md text-xs font-bold text-secondary">
 					2</div>
-				<div>
+				<div class="min-w-0">
 					<h3 class="text-[15px] font-semibold text-primary mb-1">Create Environment File</h3>
 					<p class="text-[13px] text-secondary mb-2.5">Update the database credentials in <code>.env</code>
 					</p>
@@ -237,7 +237,7 @@
 				<div
 					class="shrink-0 w-7 h-7 flex items-center justify-center bg-surface border border-border rounded-md text-xs font-bold text-secondary">
 					3</div>
-				<div>
+				<div class="min-w-0">
 					<h3 class="text-[15px] font-semibold text-primary mb-1">Start Containers</h3>
 					<p class="text-[13px] text-secondary mb-2.5">Starts PHP 8.5, MySQL 8.3, and optional Node 22
 						containers.</p>
@@ -250,7 +250,7 @@
 				<div
 					class="shrink-0 w-7 h-7 flex items-center justify-center bg-surface border border-border rounded-md text-xs font-bold text-secondary">
 					4</div>
-				<div>
+				<div class="min-w-0">
 					<h3 class="text-[15px] font-semibold text-primary mb-1">Install Dependencies</h3>
 					<div
 						class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto">
@@ -261,7 +261,7 @@
 				<div
 					class="shrink-0 w-7 h-7 flex items-center justify-center bg-surface border border-border rounded-md text-xs font-bold text-secondary">
 					5</div>
-				<div>
+				<div class="min-w-0">
 					<h3 class="text-[15px] font-semibold text-primary mb-1">Generate Application Key</h3>
 					<div
 						class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto">
@@ -272,7 +272,7 @@
 				<div
 					class="shrink-0 w-7 h-7 flex items-center justify-center bg-surface border border-border rounded-md text-xs font-bold text-secondary">
 					6</div>
-				<div>
+				<div class="min-w-0">
 					<h3 class="text-[15px] font-semibold text-primary mb-1">Run Database Migrations</h3>
 					<div
 						class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto">
@@ -400,7 +400,7 @@
 				<p class="text-sm text-secondary mb-2.5">Connect to MySQL using a GUI client or command line:</p>
 				<ul class="list-none flex flex-col gap-1.5">
 					<li class="flex gap-1.5 text-[13px] text-secondary"><strong class="text-primary">Host:</strong>
-						localhost</li>
+						mysql</li>
 					<li class="flex gap-1.5 text-[13px] text-secondary"><strong class="text-primary">Port:</strong> 3306
 					</li>
 					<li class="flex gap-1.5 text-[13px] text-secondary"><strong class="text-primary">User:</strong>
@@ -547,7 +547,10 @@
 		// Smooth scrolling
 		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 			anchor.addEventListener('click', function (e) {
-				if (this.getAttribute('href') === '#') return;
+				if (this.getAttribute('href') === '#') {
+					closeMenu();
+					return;
+				}
 				e.preventDefault();
 				closeMenu();
 				const target = document.querySelector(this.getAttribute('href'));
