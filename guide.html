@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
 	<meta charset="UTF-8">
@@ -13,10 +13,48 @@
 	<meta property="og:description"
 		content="Step-by-step guide for setting up Lara Anchor. Learn installation, configuration, and best practices.">
 	<meta property="og:type" content="website">
-	<title>Complete Guide - Lara Anchor | Setup & Configuration</title>
+	<title>Complete Guide - Lara Anchor | Setup &amp; Configuration</title>
 
 	<!-- Favicon -->
 	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+	<!-- Tailwind CSS CDN -->
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script>
+		tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						bg: '#0a0a0a',
+						elevated: '#111111',
+						surface: '#161616',
+						border: '#222222',
+						'border-hover': '#333333',
+						primary: '#e5e5e5',
+						secondary: '#888888',
+						tertiary: '#555555',
+						accent: '#ffffff',
+						'code-bg': '#0d0d0d',
+						green: '#4ade80',
+						yellow: '#fbbf24',
+					},
+					fontFamily: {
+						sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+						mono: ['JetBrains Mono', 'monospace'],
+					},
+					keyframes: {
+						'fade-up': {
+							'0%': { opacity: '0', transform: 'translateY(16px)' },
+							'100%': { opacity: '1', transform: 'translateY(0)' },
+						},
+					},
+					animation: {
+						'fade-up': 'fade-up 0.5s ease-out both',
+					},
+				},
+			},
+		}
+	</script>
 
 	<!-- Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,532 +64,30 @@
 		rel="stylesheet">
 
 	<style>
-		*,
-		*::before,
-		*::after {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
+		/* Mobile nav slide */
+		@media (max-width: 768px) {
+			.nav-links {
+				transform: translateX(100%);
+				transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			.nav-links.open {
+				transform: translateX(0);
+			}
 		}
 
-		:root {
-			--bg: #0a0a0a;
-			--bg-elevated: #111111;
-			--bg-surface: #161616;
-			--border: #222222;
-			--border-hover: #333333;
-			--text-primary: #e5e5e5;
-			--text-secondary: #888888;
-			--text-tertiary: #555555;
-			--accent: #ffffff;
-			--code-bg: #0d0d0d;
-			--toast-bg: #1a1a1a;
-			--green: #4ade80;
-			--yellow: #fbbf24;
-		}
-
-		html {
-			scroll-behavior: smooth;
-		}
-
-		body {
-			font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-			background: var(--bg);
-			color: var(--text-primary);
-			line-height: 1.6;
-			-webkit-font-smoothing: antialiased;
-			-moz-osx-font-smoothing: grayscale;
-		}
-
-		/* ─── Layout ─── */
-		.container {
-			max-width: 760px;
-			margin: 0 auto;
-			padding: 0 24px;
-		}
-
-		.container-wide {
-			max-width: 1120px;
-			margin: 0 auto;
-			padding: 0 24px;
-		}
-
-		/* ─── Navigation ─── */
-		nav {
-			position: fixed;
-			top: 0;
-			width: 100%;
-			z-index: 100;
-			background: rgba(10, 10, 10, 0.8);
-			backdrop-filter: blur(20px);
-			-webkit-backdrop-filter: blur(20px);
-			border-bottom: 1px solid var(--border);
-		}
-
-		.nav-inner {
-			max-width: 1120px;
-			margin: 0 auto;
-			padding: 16px 24px;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
-
-		.logo {
-			font-size: 18px;
-			font-weight: 700;
-			color: var(--accent);
-			text-decoration: none;
-			letter-spacing: -0.02em;
-		}
-
-		.nav-links {
-			display: flex;
-			align-items: center;
-			gap: 32px;
-		}
-
-		.nav-links a {
-			font-size: 14px;
-			font-weight: 500;
-			color: var(--text-secondary);
-			text-decoration: none;
-			transition: color 0.2s;
-		}
-
-		.nav-links a:hover {
-			color: var(--text-primary);
-		}
-
-		.nav-links a.active {
-			color: var(--accent);
-		}
-
-		/* ─── Header ─── */
-		.page-header {
-			padding: 140px 0 60px;
-			border-bottom: 1px solid var(--border);
-			margin-bottom: 60px;
-		}
-
-		.page-header h1 {
-			font-size: clamp(32px, 5vw, 44px);
-			font-weight: 800;
-			letter-spacing: -0.03em;
-			color: var(--accent);
-			margin-bottom: 12px;
-		}
-
-		.page-header p {
-			font-size: 17px;
-			color: var(--text-secondary);
-			line-height: 1.7;
-		}
-
-		/* ─── Table of Contents ─── */
-		.toc {
-			padding: 24px;
-			background: var(--bg-elevated);
-			border: 1px solid var(--border);
-			border-radius: 12px;
-			margin-bottom: 64px;
-		}
-
-		.toc h2 {
-			font-size: 13px;
-			font-weight: 600;
-			color: var(--text-tertiary);
-			text-transform: uppercase;
-			letter-spacing: 0.08em;
-			margin-bottom: 16px;
-		}
-
-		.toc-grid {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 8px;
-		}
-
-		.toc a {
-			font-size: 14px;
-			font-weight: 500;
-			color: var(--text-secondary);
-			text-decoration: none;
-			padding: 6px 0;
-			transition: color 0.2s;
-		}
-
-		.toc a:hover {
-			color: var(--text-primary);
-		}
-
-		/* ─── Sections ─── */
-		.guide-section {
-			margin-bottom: 72px;
-		}
-
-		.guide-section>h2 {
-			font-size: 24px;
-			font-weight: 700;
-			color: var(--text-primary);
-			letter-spacing: -0.02em;
-			margin-bottom: 28px;
-			padding-bottom: 12px;
-			border-bottom: 1px solid var(--border);
-		}
-
-		/* ─── Cards ─── */
-		.card {
-			padding: 24px;
-			background: var(--bg-elevated);
-			border: 1px solid var(--border);
-			border-radius: 12px;
-			margin-bottom: 16px;
-		}
-
-		.card h3 {
-			font-size: 16px;
-			font-weight: 600;
-			color: var(--text-primary);
-			margin-bottom: 12px;
-		}
-
-		.card p {
-			font-size: 14px;
-			color: var(--text-secondary);
-			line-height: 1.7;
-			margin-bottom: 12px;
-		}
-
-		.card p:last-child {
-			margin-bottom: 0;
-		}
-
-		/* ─── Code Blocks ─── */
-		.code-block {
-			padding: 14px 16px;
-			background: var(--code-bg);
-			border: 1px solid var(--border);
-			border-radius: 8px;
+		/* Inline code */
+		code {
+			padding: 2px 6px;
+			background: #161616;
+			border: 1px solid #222222;
+			border-radius: 4px;
 			font-family: 'JetBrains Mono', monospace;
-			font-size: 13px;
-			color: var(--text-primary);
-			overflow-x: auto;
-			white-space: nowrap;
-			line-height: 1.7;
-		}
-
-		.code-row {
-			display: flex;
-			gap: 8px;
-			align-items: stretch;
-		}
-
-		.code-row .code-block {
-			flex: 1;
-		}
-
-		.copy-btn {
-			padding: 14px 18px;
-			background: var(--bg-surface);
-			color: var(--text-secondary);
-			border: 1px solid var(--border);
-			border-radius: 8px;
-			font-size: 13px;
-			font-weight: 500;
-			font-family: inherit;
-			cursor: pointer;
-			white-space: nowrap;
-			transition: color 0.2s, border-color 0.2s;
-			flex-shrink: 0;
-		}
-
-		.copy-btn:hover {
-			color: var(--text-primary);
-			border-color: var(--border-hover);
-		}
-
-		/* ─── Prerequisite List ─── */
-		.check-list {
-			list-style: none;
-			display: flex;
-			flex-direction: column;
-			gap: 8px;
-		}
-
-		.check-list li {
-			display: flex;
-			align-items: center;
-			gap: 10px;
-			font-size: 14px;
-			color: var(--text-secondary);
-		}
-
-		.check-icon {
-			width: 18px;
-			height: 18px;
-			flex-shrink: 0;
-			color: var(--green);
-		}
-
-		/* ─── Step indicators ─── */
-		.step-card {
-			display: flex;
-			gap: 16px;
-			padding: 20px;
-			background: var(--bg-elevated);
-			border: 1px solid var(--border);
-			border-radius: 12px;
-			margin-bottom: 8px;
-		}
-
-		.step-num {
-			flex-shrink: 0;
-			width: 28px;
-			height: 28px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			background: var(--bg-surface);
-			border: 1px solid var(--border);
-			border-radius: 6px;
-			font-size: 12px;
-			font-weight: 700;
-			color: var(--text-secondary);
-		}
-
-		.step-body h3 {
-			font-size: 15px;
-			font-weight: 600;
-			color: var(--text-primary);
-			margin-bottom: 4px;
-		}
-
-		.step-body p {
-			font-size: 13px;
-			color: var(--text-secondary);
-			margin-bottom: 10px;
-		}
-
-		.step-body .code-block {
 			font-size: 12px;
 		}
 
-		/* ─── Command Grid ─── */
-		.cmd-grid {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 12px;
-		}
-
-		.cmd-card {
-			padding: 20px;
-			background: var(--bg-elevated);
-			border: 1px solid var(--border);
-			border-radius: 12px;
-		}
-
-		.cmd-card p.label {
-			font-size: 14px;
-			font-weight: 600;
-			color: var(--text-primary);
-			margin-bottom: 10px;
-		}
-
-		.cmd-card .code-block {
-			font-size: 12px;
-		}
-
-		/* ─── Info Block ─── */
-		.info-block {
-			padding: 16px 20px;
-			background: var(--bg-elevated);
-			border: 1px solid var(--border);
-			border-left: 3px solid var(--text-tertiary);
-			border-radius: 8px;
-			margin-bottom: 16px;
-		}
-
-		.info-block.success {
-			border-left-color: var(--green);
-		}
-
-		.info-block.warning {
-			border-left-color: var(--yellow);
-		}
-
-		.info-block p {
-			font-size: 14px;
-			color: var(--text-secondary);
-			line-height: 1.6;
-		}
-
-		.info-block strong {
-			color: var(--text-primary);
-		}
-
-		/* ─── Workflow Cards ─── */
-		.workflow-card {
-			padding: 20px;
-			background: var(--bg-elevated);
-			border: 1px solid var(--border);
-			border-radius: 12px;
-			margin-bottom: 12px;
-		}
-
-		.workflow-card h3 {
-			font-size: 15px;
-			font-weight: 600;
-			color: var(--text-primary);
-			margin-bottom: 6px;
-		}
-
-		.workflow-card p {
-			font-size: 14px;
-			color: var(--text-secondary);
-			line-height: 1.6;
-			margin-bottom: 10px;
-		}
-
-		.workflow-card p:last-child {
-			margin-bottom: 0;
-		}
-
-		.workflow-card ul {
-			list-style: none;
-			display: flex;
-			flex-direction: column;
-			gap: 6px;
-		}
-
-		.workflow-card ul li {
-			font-size: 13px;
-			color: var(--text-secondary);
-			display: flex;
-			gap: 6px;
-		}
-
-		.workflow-card ul li strong {
-			color: var(--text-primary);
-		}
-
-		/* ─── Troubleshooting ─── */
-		.trouble-card {
-			padding: 20px;
-			background: var(--bg-elevated);
-			border: 1px solid var(--border);
-			border-radius: 12px;
-			margin-bottom: 12px;
-		}
-
-		.trouble-card h3 {
-			font-size: 15px;
-			font-weight: 600;
-			color: var(--text-primary);
-			margin-bottom: 8px;
-		}
-
-		.trouble-card .problem,
-		.trouble-card .solution {
-			font-size: 13px;
-			color: var(--text-secondary);
-			margin-bottom: 8px;
-		}
-
-		.trouble-card .problem strong,
-		.trouble-card .solution strong {
-			color: var(--text-primary);
-		}
-
-		/* ─── FAQ ─── */
-		.faq-card {
-			padding: 20px;
-			background: var(--bg-elevated);
-			border: 1px solid var(--border);
-			border-radius: 12px;
-			margin-bottom: 8px;
-		}
-
-		.faq-card .question {
-			font-size: 15px;
-			font-weight: 600;
-			color: var(--text-primary);
-			margin-bottom: 8px;
-		}
-
-		.faq-card .answer {
-			font-size: 14px;
-			color: var(--text-secondary);
-			line-height: 1.7;
-		}
-
-		/* ─── CTA ─── */
-		.cta-block {
-			padding: 40px;
-			background: var(--bg-elevated);
-			border: 1px solid var(--border);
-			border-radius: 12px;
-			text-align: center;
-			margin-bottom: 60px;
-		}
-
-		.cta-block h2 {
-			font-size: 20px;
-			font-weight: 700;
-			color: var(--text-primary);
-			margin-bottom: 8px;
-		}
-
-		.cta-block p {
-			font-size: 14px;
-			color: var(--text-secondary);
-			margin-bottom: 20px;
-		}
-
-		.cta-block a {
-			display: inline-flex;
-			align-items: center;
-			gap: 8px;
-			font-size: 14px;
-			font-weight: 600;
-			color: var(--text-secondary);
-			text-decoration: none;
-			transition: color 0.2s;
-		}
-
-		.cta-block a:hover {
-			color: var(--text-primary);
-		}
-
-		/* ─── Footer ─── */
-		footer {
-			padding: 40px 0;
-			border-top: 1px solid var(--border);
-			text-align: center;
-		}
-
-		footer p {
-			font-size: 13px;
-			color: var(--text-tertiary);
-		}
-
-		footer p+p {
-			margin-top: 4px;
-		}
-
-		/* ─── Toast ─── */
+		/* Toast */
 		.toast {
-			position: fixed;
-			bottom: 24px;
-			right: 24px;
-			padding: 14px 20px;
-			background: var(--toast-bg);
-			color: var(--text-primary);
-			border: 1px solid var(--border);
-			border-radius: 10px;
-			font-size: 14px;
-			font-weight: 500;
-			z-index: 9999;
 			animation: toast-in 0.3s ease-out, toast-out 0.3s ease-in 2s forwards;
 		}
 
@@ -577,98 +113,109 @@
 				transform: translateY(4px);
 			}
 		}
-
-		/* ─── Responsive ─── */
-		@media (max-width: 768px) {
-			.toc-grid {
-				grid-template-columns: 1fr;
-			}
-
-			.cmd-grid {
-				grid-template-columns: 1fr;
-			}
-
-			.nav-links {
-				gap: 20px;
-			}
-		}
-
-		code {
-			padding: 2px 6px;
-			background: var(--bg-surface);
-			border: 1px solid var(--border);
-			border-radius: 4px;
-			font-family: 'JetBrains Mono', monospace;
-			font-size: 12px;
-		}
 	</style>
 </head>
 
-<body>
+<body class="bg-bg text-primary font-sans leading-relaxed antialiased">
 
 	<!-- Navigation -->
-	<nav>
-		<div class="nav-inner">
-			<a href="index.html" class="logo">⚓ Lara Anchor</a>
-			<div class="nav-links">
-				<a href="index.html">Home</a>
-				<a href="index.html#features">Features</a>
-				<a href="#" class="active">Guide</a>
+	<nav class="fixed top-0 w-full z-[100] bg-[rgba(10,10,10,0.85)] backdrop-blur-xl border-b border-border">
+		<div class="max-w-[1120px] mx-auto px-6 flex justify-between items-center py-4">
+			<a href="index.html"
+				class="text-lg font-bold text-accent tracking-tight no-underline transition-opacity duration-200 hover:opacity-75">⚓
+				Lara Anchor</a>
+
+			<!-- Mobile toggle -->
+			<button id="menuToggle" aria-label="Toggle menu"
+				class="md:hidden bg-transparent border border-border rounded-lg p-2 cursor-pointer text-primary leading-none transition-colors duration-200 hover:border-border-hover">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+				</svg>
+			</button>
+
+			<!-- Nav links -->
+			<div id="navLinks"
+				class="nav-links max-md:fixed max-md:top-0 max-md:right-0 max-md:w-[260px] max-md:h-screen max-md:bg-elevated max-md:border-l max-md:border-border max-md:flex-col max-md:items-stretch max-md:pt-20 max-md:pb-8 max-md:px-6 max-md:gap-0 max-md:z-[200] flex items-center gap-8">
+				<a href="index.html"
+					class="text-sm font-medium text-secondary no-underline transition-colors duration-200 hover:text-primary max-md:py-3.5 max-md:text-[15px] max-md:border-b max-md:border-border">Home</a>
+				<a href="index.html#features"
+					class="text-sm font-medium text-secondary no-underline transition-colors duration-200 hover:text-primary max-md:py-3.5 max-md:text-[15px] max-md:border-b max-md:border-border">Features</a>
+				<a href="#"
+					class="text-sm font-medium text-accent no-underline max-md:py-3.5 max-md:text-[15px] max-md:border-b max-md:border-border">Guide</a>
 			</div>
 		</div>
 	</nav>
+	<div id="navOverlay" class="hidden fixed inset-0 bg-black/50 z-[150]"></div>
 
-	<!-- Header -->
-	<div class="page-header">
-		<div class="container">
-			<h1>Guide</h1>
-			<p>Everything you need to know about setting up and using Lara Anchor.</p>
+	<!-- Page Header -->
+	<div class="pt-36 pb-14 border-b border-border mb-14 animate-fade-up">
+		<div class="max-w-[760px] mx-auto px-6">
+			<h1 class="text-[clamp(32px,5vw,44px)] font-extrabold tracking-[-0.03em] text-accent mb-3">Guide</h1>
+			<p class="text-[17px] text-secondary leading-[1.7]">Everything you need to know about setting up and using
+				Lara Anchor.</p>
 		</div>
 	</div>
 
 	<!-- Main Content -->
-	<div class="container">
+	<div class="max-w-[760px] mx-auto px-6 pb-24">
 
 		<!-- Table of Contents -->
-		<div class="toc">
-			<h2>On this page</h2>
-			<div class="toc-grid">
-				<a href="#installation">1. Installation</a>
-				<a href="#configuration">2. Configuration</a>
-				<a href="#commands">3. Common Commands</a>
-				<a href="#development">4. Development Workflow</a>
-				<a href="#troubleshooting">5. Troubleshooting</a>
-				<a href="#faq">6. FAQ</a>
+		<div class="p-6 bg-elevated border border-border rounded-xl mb-16">
+			<h2 class="text-[13px] font-semibold text-tertiary uppercase tracking-[0.08em] mb-4">On this page</h2>
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+				<a href="#installation"
+					class="text-sm font-medium text-secondary no-underline py-1.5 transition-colors duration-200 hover:text-primary">1.
+					Installation</a>
+				<a href="#configuration"
+					class="text-sm font-medium text-secondary no-underline py-1.5 transition-colors duration-200 hover:text-primary">2.
+					Configuration</a>
+				<a href="#commands"
+					class="text-sm font-medium text-secondary no-underline py-1.5 transition-colors duration-200 hover:text-primary">3.
+					Common Commands</a>
+				<a href="#development"
+					class="text-sm font-medium text-secondary no-underline py-1.5 transition-colors duration-200 hover:text-primary">4.
+					Development Workflow</a>
+				<a href="#troubleshooting"
+					class="text-sm font-medium text-secondary no-underline py-1.5 transition-colors duration-200 hover:text-primary">5.
+					Troubleshooting</a>
+				<a href="#faq"
+					class="text-sm font-medium text-secondary no-underline py-1.5 transition-colors duration-200 hover:text-primary">6.
+					FAQ</a>
 			</div>
 		</div>
 
-		<!-- Installation -->
-		<section id="installation" class="guide-section">
-			<h2>1. Installation</h2>
+		<!-- 1. Installation -->
+		<section id="installation" class="mb-[72px]">
+			<h2 class="text-2xl font-bold text-primary tracking-[-0.02em] mb-7 pb-3 border-b border-border">1.
+				Installation</h2>
 
-			<div class="card">
-				<h3>Prerequisites</h3>
-				<ul class="check-list">
-					<li>
-						<svg class="check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<div class="p-6 bg-elevated border border-border rounded-xl mb-4">
+				<h3 class="text-base font-semibold text-primary mb-3">Prerequisites</h3>
+				<ul class="list-none flex flex-col gap-2">
+					<li class="flex items-center gap-2.5 text-sm text-secondary">
+						<svg class="w-[18px] h-[18px] shrink-0 text-green" fill="none" stroke="currentColor"
+							viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
 						</svg>
-						<span><strong>Docker</strong> installed (includes docker compose)</span>
+						<span><strong class="text-primary">Docker</strong> installed (includes docker compose)</span>
 					</li>
-					<li>
-						<svg class="check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<li class="flex items-center gap-2.5 text-sm text-secondary">
+						<svg class="w-[18px] h-[18px] shrink-0 text-green" fill="none" stroke="currentColor"
+							viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
 						</svg>
-						<span><strong>Git</strong> installed on your system</span>
+						<span><strong class="text-primary">Git</strong> installed on your system</span>
 					</li>
-					<li>
-						<svg class="check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<li class="flex items-center gap-2.5 text-sm text-secondary">
+						<svg class="w-[18px] h-[18px] shrink-0 text-green" fill="none" stroke="currentColor"
+							viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
 						</svg>
-						<span><strong>4GB+ RAM</strong> available for Docker containers</span>
+						<span><strong class="text-primary">4GB+ RAM</strong> available for Docker containers</span>
 					</li>
-					<li>
-						<svg class="check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<li class="flex items-center gap-2.5 text-sm text-secondary">
+						<svg class="w-[18px] h-[18px] shrink-0 text-green" fill="none" stroke="currentColor"
+							viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
 						</svg>
 						<span>A code editor (VS Code recommended)</span>
@@ -676,237 +223,303 @@
 				</ul>
 			</div>
 
-			<div class="card">
-				<h3>One-Command Installation</h3>
-				<div class="code-row">
-					<div class="code-block">curl -s https://lara-anchor.netlify.app/install.sh | bash</div>
-					<button class="copy-btn"
-						onclick="copyText('curl -s https://lara-anchor.netlify.app/install.sh | bash')">Copy</button>
+			<div class="p-6 bg-elevated border border-border rounded-xl mb-4">
+				<h3 class="text-base font-semibold text-primary mb-3">One-Command Installation</h3>
+				<div class="flex gap-2 items-stretch">
+					<div
+						class="flex-1 px-4 py-3.5 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto whitespace-nowrap leading-[1.7]">
+						curl -s https://lara-anchor.netlify.app/install.sh | bash</div>
+					<button onclick="copyText('curl -s https://lara-anchor.netlify.app/install.sh | bash')"
+						class="px-4 py-3.5 bg-surface text-secondary border border-border rounded-lg text-[13px] font-medium shrink-0 whitespace-nowrap cursor-pointer transition-colors duration-200 hover:text-primary hover:border-border-hover">Copy</button>
 				</div>
-				<p style="margin-top: 12px; font-size: 13px;">Downloads and extracts the latest Lara Anchor template
+				<p class="mt-3 text-[13px] text-secondary">Downloads and extracts the latest Lara Anchor template
 					automatically.</p>
 			</div>
 
-			<h3 style="font-size: 18px; font-weight: 700; color: var(--text-primary); margin: 28px 0 16px;">Step-by-Step
-				Setup</h3>
+			<h3 class="text-[18px] font-bold text-primary mt-7 mb-4">Step-by-Step Setup</h3>
 
-			<div class="step-card">
-				<div class="step-num">1</div>
-				<div class="step-body">
-					<h3>Clone the Repository</h3>
-					<div class="code-block">git clone https://github.com/yourusername/lara-anchor.git<br>cd lara-anchor
-					</div>
+			<div class="flex gap-4 p-5 bg-elevated border border-border rounded-xl mb-2">
+				<div
+					class="shrink-0 w-7 h-7 flex items-center justify-center bg-surface border border-border rounded-md text-xs font-bold text-secondary">
+					1</div>
+				<div>
+					<h3 class="text-[15px] font-semibold text-primary mb-1">Clone the Repository</h3>
+					<div
+						class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto leading-[1.7]">
+						git clone https://github.com/yourusername/lara-anchor.git<br>cd lara-anchor</div>
+				</div>
+			</div>
+			<div class="flex gap-4 p-5 bg-elevated border border-border rounded-xl mb-2">
+				<div
+					class="shrink-0 w-7 h-7 flex items-center justify-center bg-surface border border-border rounded-md text-xs font-bold text-secondary">
+					2</div>
+				<div>
+					<h3 class="text-[15px] font-semibold text-primary mb-1">Create Environment File</h3>
+					<p class="text-[13px] text-secondary mb-2.5">Update the database credentials in <code>.env</code>
+					</p>
+					<div
+						class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto">
+						cp .env.example .env</div>
+				</div>
+			</div>
+			<div class="flex gap-4 p-5 bg-elevated border border-border rounded-xl mb-2">
+				<div
+					class="shrink-0 w-7 h-7 flex items-center justify-center bg-surface border border-border rounded-md text-xs font-bold text-secondary">
+					3</div>
+				<div>
+					<h3 class="text-[15px] font-semibold text-primary mb-1">Start Containers</h3>
+					<p class="text-[13px] text-secondary mb-2.5">Starts PHP 8.5, MySQL 8.3, and optional Node 22
+						containers.</p>
+					<div
+						class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto">
+						docker compose up -d</div>
+				</div>
+			</div>
+			<div class="flex gap-4 p-5 bg-elevated border border-border rounded-xl mb-2">
+				<div
+					class="shrink-0 w-7 h-7 flex items-center justify-center bg-surface border border-border rounded-md text-xs font-bold text-secondary">
+					4</div>
+				<div>
+					<h3 class="text-[15px] font-semibold text-primary mb-1">Install Dependencies</h3>
+					<div
+						class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto">
+						docker compose exec app composer install</div>
+				</div>
+			</div>
+			<div class="flex gap-4 p-5 bg-elevated border border-border rounded-xl mb-2">
+				<div
+					class="shrink-0 w-7 h-7 flex items-center justify-center bg-surface border border-border rounded-md text-xs font-bold text-secondary">
+					5</div>
+				<div>
+					<h3 class="text-[15px] font-semibold text-primary mb-1">Generate Application Key</h3>
+					<div
+						class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto">
+						docker compose exec app php artisan key:generate</div>
+				</div>
+			</div>
+			<div class="flex gap-4 p-5 bg-elevated border border-border rounded-xl mb-2">
+				<div
+					class="shrink-0 w-7 h-7 flex items-center justify-center bg-surface border border-border rounded-md text-xs font-bold text-secondary">
+					6</div>
+				<div>
+					<h3 class="text-[15px] font-semibold text-primary mb-1">Run Database Migrations</h3>
+					<div
+						class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto">
+						docker compose exec app php artisan migrate</div>
 				</div>
 			</div>
 
-			<div class="step-card">
-				<div class="step-num">2</div>
-				<div class="step-body">
-					<h3>Create Environment File</h3>
-					<p>Update the database credentials in <code>.env</code></p>
-					<div class="code-block">cp .env.example .env</div>
-				</div>
-			</div>
-
-			<div class="step-card">
-				<div class="step-num">3</div>
-				<div class="step-body">
-					<h3>Start Containers</h3>
-					<p>Starts PHP 8.5, MySQL 8.3, and optional Node 22 containers.</p>
-					<div class="code-block">docker compose up -d</div>
-				</div>
-			</div>
-
-			<div class="step-card">
-				<div class="step-num">4</div>
-				<div class="step-body">
-					<h3>Install Dependencies</h3>
-					<div class="code-block">docker compose exec app composer install</div>
-				</div>
-			</div>
-
-			<div class="step-card">
-				<div class="step-num">5</div>
-				<div class="step-body">
-					<h3>Generate Application Key</h3>
-					<div class="code-block">docker compose exec app php artisan key:generate</div>
-				</div>
-			</div>
-
-			<div class="step-card">
-				<div class="step-num">6</div>
-				<div class="step-body">
-					<h3>Run Database Migrations</h3>
-					<div class="code-block">docker compose exec app php artisan migrate</div>
-				</div>
-			</div>
-
-			<div class="info-block success" style="margin-top: 16px;">
-				<p><strong>Done!</strong> Your Laravel application is now running on <a href="http://localhost:8000"
-						style="color: var(--green); text-decoration: none;">http://localhost:8000</a></p>
-			</div>
-		</section>
-
-		<!-- Configuration -->
-		<section id="configuration" class="guide-section">
-			<h2>2. Configuration</h2>
-
-			<div class="card">
-				<h3>Environment Variables (.env)</h3>
-				<p>Key environment variables for Docker configuration:</p>
-				<div class="code-block" style="white-space: pre; line-height: 1.8;">APP_MEM_LIMIT=256m <span
-						style="color: var(--text-tertiary);"># Memory limit for PHP container</span>
-					DB_MEM_LIMIT=512m <span style="color: var(--text-tertiary);"># Memory limit for MySQL</span>
-					MYSQL_DATABASE=laravel <span style="color: var(--text-tertiary);"># Database name</span>
-					MYSQL_USER=laravel <span style="color: var(--text-tertiary);"># Database user</span>
-					MYSQL_PASSWORD=secret <span style="color: var(--text-tertiary);"># Database password</span>
-					MYSQL_ROOT_PASSWORD=root <span style="color: var(--text-tertiary);"># MySQL root password</span>
-				</div>
-			</div>
-
-			<div class="info-block warning">
-				<p><strong>Note:</strong> Always use strong passwords in production. Update MYSQL_PASSWORD and
-					MYSQL_ROOT_PASSWORD.</p>
+			<div class="mt-4 px-5 py-4 bg-elevated border border-l-4 border-l-green border-border rounded-lg">
+				<p class="text-sm text-secondary leading-relaxed"><strong class="text-primary">Done!</strong> Your
+					Laravel application is now running on <a href="http://localhost:8000"
+						class="text-green no-underline hover:underline">http://localhost:8000</a></p>
 			</div>
 		</section>
 
-		<!-- Commands -->
-		<section id="commands" class="guide-section">
-			<h2>3. Common Commands</h2>
+		<!-- 2. Configuration -->
+		<section id="configuration" class="mb-[72px]">
+			<h2 class="text-2xl font-bold text-primary tracking-[-0.02em] mb-7 pb-3 border-b border-border">2.
+				Configuration</h2>
 
-			<div class="cmd-grid">
-				<div class="cmd-card">
-					<p class="label">Start Containers</p>
-					<div class="code-block">docker compose up -d</div>
+			<div class="p-6 bg-elevated border border-border rounded-xl mb-4">
+				<h3 class="text-base font-semibold text-primary mb-3">Environment Variables (.env)</h3>
+				<p class="text-sm text-secondary mb-3 leading-[1.7]">Key environment variables for Docker configuration:
+				</p>
+				<div
+					class="px-4 py-3.5 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto leading-[1.8] whitespace-pre">
+					APP_MEM_LIMIT=256m <span class="text-tertiary"># Memory limit for PHP container</span>
+					DB_MEM_LIMIT=512m <span class="text-tertiary"># Memory limit for MySQL</span>
+					MYSQL_DATABASE=laravel <span class="text-tertiary"># Database name</span>
+					MYSQL_USER=laravel <span class="text-tertiary"># Database user</span>
+					MYSQL_PASSWORD=secret <span class="text-tertiary"># Database password</span>
+					MYSQL_ROOT_PASSWORD=root <span class="text-tertiary"># MySQL root password</span></div>
+			</div>
+
+			<div class="px-5 py-4 bg-elevated border border-l-4 border-l-yellow border-border rounded-lg mb-4">
+				<p class="text-sm text-secondary leading-relaxed"><strong class="text-primary">Note:</strong> Always use
+					strong passwords in production. Update MYSQL_PASSWORD and MYSQL_ROOT_PASSWORD.</p>
+			</div>
+		</section>
+
+		<!-- 3. Common Commands -->
+		<section id="commands" class="mb-[72px]">
+			<h2 class="text-2xl font-bold text-primary tracking-[-0.02em] mb-7 pb-3 border-b border-border">3. Common
+				Commands</h2>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+				<div
+					class="p-5 bg-elevated border border-border rounded-xl transition-colors duration-200 hover:border-border-hover">
+					<p class="text-sm font-semibold text-primary mb-2.5">Start Containers</p>
+					<div class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-xs text-primary overflow-x-auto cursor-pointer"
+						onclick="copyText('docker compose up -d')" title="Click to copy">docker compose up -d</div>
 				</div>
-				<div class="cmd-card">
-					<p class="label">Stop Containers</p>
-					<div class="code-block">docker compose down</div>
+				<div
+					class="p-5 bg-elevated border border-border rounded-xl transition-colors duration-200 hover:border-border-hover">
+					<p class="text-sm font-semibold text-primary mb-2.5">Stop Containers</p>
+					<div class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-xs text-primary overflow-x-auto cursor-pointer"
+						onclick="copyText('docker compose down')" title="Click to copy">docker compose down</div>
 				</div>
-				<div class="cmd-card">
-					<p class="label">View Logs</p>
-					<div class="code-block">docker compose logs -f app</div>
+				<div
+					class="p-5 bg-elevated border border-border rounded-xl transition-colors duration-200 hover:border-border-hover">
+					<p class="text-sm font-semibold text-primary mb-2.5">View Logs</p>
+					<div class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-xs text-primary overflow-x-auto cursor-pointer"
+						onclick="copyText('docker compose logs -f app')" title="Click to copy">docker compose logs -f
+						app</div>
 				</div>
-				<div class="cmd-card">
-					<p class="label">Run Artisan</p>
-					<div class="code-block">docker compose exec app php artisan &lt;cmd&gt;</div>
+				<div
+					class="p-5 bg-elevated border border-border rounded-xl transition-colors duration-200 hover:border-border-hover">
+					<p class="text-sm font-semibold text-primary mb-2.5">Run Artisan</p>
+					<div
+						class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-xs text-primary overflow-x-auto">
+						docker compose exec app php artisan &lt;cmd&gt;</div>
 				</div>
-				<div class="cmd-card">
-					<p class="label">Run Composer</p>
-					<div class="code-block">docker compose exec app composer &lt;cmd&gt;</div>
+				<div
+					class="p-5 bg-elevated border border-border rounded-xl transition-colors duration-200 hover:border-border-hover">
+					<p class="text-sm font-semibold text-primary mb-2.5">Run Composer</p>
+					<div
+						class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-xs text-primary overflow-x-auto">
+						docker compose exec app composer &lt;cmd&gt;</div>
 				</div>
-				<div class="cmd-card">
-					<p class="label">Access Database</p>
-					<div class="code-block">docker compose exec mysql mysql -u laravel -p</div>
+				<div
+					class="p-5 bg-elevated border border-border rounded-xl transition-colors duration-200 hover:border-border-hover">
+					<p class="text-sm font-semibold text-primary mb-2.5">Access Database</p>
+					<div class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-xs text-primary overflow-x-auto cursor-pointer"
+						onclick="copyText('docker compose exec mysql mysql -u laravel -p')" title="Click to copy">docker
+						compose exec mysql mysql -u laravel -p</div>
 				</div>
-				<div class="cmd-card">
-					<p class="label">Rebuild Containers</p>
-					<div class="code-block">docker compose up -d --build</div>
+				<div
+					class="p-5 bg-elevated border border-border rounded-xl transition-colors duration-200 hover:border-border-hover">
+					<p class="text-sm font-semibold text-primary mb-2.5">Rebuild Containers</p>
+					<div class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-xs text-primary overflow-x-auto cursor-pointer"
+						onclick="copyText('docker compose up -d --build')" title="Click to copy">docker compose up -d
+						--build</div>
 				</div>
-				<div class="cmd-card">
-					<p class="label">Run pnpm (Node)</p>
-					<div class="code-block">docker compose --profile dev up -d<br>docker compose exec node pnpm install
-					</div>
+				<div
+					class="p-5 bg-elevated border border-border rounded-xl transition-colors duration-200 hover:border-border-hover">
+					<p class="text-sm font-semibold text-primary mb-2.5">Run pnpm (Node)</p>
+					<div
+						class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-xs text-primary overflow-x-auto">
+						docker compose --profile dev up -d<br>docker compose exec node pnpm install</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- Development -->
-		<section id="development" class="guide-section">
-			<h2>4. Development Workflow</h2>
+		<!-- 4. Development Workflow -->
+		<section id="development" class="mb-[72px]">
+			<h2 class="text-2xl font-bold text-primary tracking-[-0.02em] mb-7 pb-3 border-b border-border">4.
+				Development Workflow</h2>
 
-			<div class="workflow-card">
-				<h3>File Synchronization</h3>
-				<p>Your Laravel project files are mounted as volumes. Changes are instantly reflected in the container
-					without rebuilds.</p>
+			<div class="p-5 bg-elevated border border-border rounded-xl mb-3">
+				<h3 class="text-[15px] font-semibold text-primary mb-1.5">File Synchronization</h3>
+				<p class="text-sm text-secondary leading-[1.6]">Your Laravel project files are mounted as volumes.
+					Changes are instantly reflected in the container without rebuilds.</p>
 			</div>
 
-			<div class="workflow-card">
-				<h3>Debug Mode</h3>
-				<p>Enable debug mode in your <code>.env</code> file:</p>
-				<div class="code-block">APP_DEBUG=true</div>
+			<div class="p-5 bg-elevated border border-border rounded-xl mb-3">
+				<h3 class="text-[15px] font-semibold text-primary mb-1.5">Debug Mode</h3>
+				<p class="text-sm text-secondary mb-2.5">Enable debug mode in your <code>.env</code> file:</p>
+				<div
+					class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto">
+					APP_DEBUG=true</div>
 			</div>
 
-			<div class="workflow-card">
-				<h3>Database Access</h3>
-				<p>Connect to MySQL using a GUI client or command line:</p>
-				<ul>
-					<li><strong>Host:</strong> localhost</li>
-					<li><strong>Port:</strong> 3306</li>
-					<li><strong>User:</strong> laravel (or root)</li>
-					<li><strong>Password:</strong> secret (check .env)</li>
-					<li><strong>Database:</strong> laravel</li>
+			<div class="p-5 bg-elevated border border-border rounded-xl mb-3">
+				<h3 class="text-[15px] font-semibold text-primary mb-1.5">Database Access</h3>
+				<p class="text-sm text-secondary mb-2.5">Connect to MySQL using a GUI client or command line:</p>
+				<ul class="list-none flex flex-col gap-1.5">
+					<li class="flex gap-1.5 text-[13px] text-secondary"><strong class="text-primary">Host:</strong>
+						localhost</li>
+					<li class="flex gap-1.5 text-[13px] text-secondary"><strong class="text-primary">Port:</strong> 3306
+					</li>
+					<li class="flex gap-1.5 text-[13px] text-secondary"><strong class="text-primary">User:</strong>
+						laravel (or root)</li>
+					<li class="flex gap-1.5 text-[13px] text-secondary"><strong class="text-primary">Password:</strong>
+						secret (check .env)</li>
+					<li class="flex gap-1.5 text-[13px] text-secondary"><strong class="text-primary">Database:</strong>
+						laravel</li>
 				</ul>
 			</div>
 		</section>
 
-		<!-- Troubleshooting -->
-		<section id="troubleshooting" class="guide-section">
-			<h2>5. Troubleshooting</h2>
+		<!-- 5. Troubleshooting -->
+		<section id="troubleshooting" class="mb-[72px]">
+			<h2 class="text-2xl font-bold text-primary tracking-[-0.02em] mb-7 pb-3 border-b border-border">5.
+				Troubleshooting</h2>
 
-			<div class="trouble-card">
-				<h3>Port Already in Use</h3>
-				<p class="problem"><strong>Problem:</strong> Port 8000 is already in use.</p>
-				<p class="solution"><strong>Solution:</strong> Change the port in docker-compose.yml or kill the
-					process:</p>
-				<div class="code-block">lsof -i :8000<br>kill -9 &lt;PID&gt;</div>
+			<div class="p-5 bg-elevated border border-border rounded-xl mb-3">
+				<h3 class="text-[15px] font-semibold text-primary mb-2">Port Already in Use</h3>
+				<p class="text-[13px] text-secondary mb-2"><strong class="text-primary">Problem:</strong> Port 8000 is
+					already in use.</p>
+				<p class="text-[13px] text-secondary mb-2">Change the port in docker-compose.yml or kill the process:
+				</p>
+				<div class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto cursor-pointer"
+					onclick="copyText('lsof -i :8000')" title="Click to copy">lsof -i :8000<br>kill -9 &lt;PID&gt;</div>
 			</div>
 
-			<div class="trouble-card">
-				<h3>Database Connection Error</h3>
-				<p class="problem"><strong>Problem:</strong> Can't connect to MySQL.</p>
-				<p class="solution"><strong>Solution:</strong> Ensure MySQL container is running:</p>
-				<div class="code-block">docker compose ps</div>
+			<div class="p-5 bg-elevated border border-border rounded-xl mb-3">
+				<h3 class="text-[15px] font-semibold text-primary mb-2">Database Connection Error</h3>
+				<p class="text-[13px] text-secondary mb-2"><strong class="text-primary">Problem:</strong> Can't connect
+					to MySQL.</p>
+				<p class="text-[13px] text-secondary mb-2">Ensure MySQL container is running:</p>
+				<div class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto cursor-pointer"
+					onclick="copyText('docker compose ps')" title="Click to copy">docker compose ps</div>
 			</div>
 
-			<div class="trouble-card">
-				<h3>Permission Denied Errors</h3>
-				<p class="problem"><strong>Problem:</strong> Cannot write to storage/ or bootstrap/ directories.</p>
-				<p class="solution"><strong>Solution:</strong> Fix permissions inside the container:</p>
-				<div class="code-block">docker compose exec app chmod -R 777 storage bootstrap/cache</div>
+			<div class="p-5 bg-elevated border border-border rounded-xl mb-3">
+				<h3 class="text-[15px] font-semibold text-primary mb-2">Permission Denied Errors</h3>
+				<p class="text-[13px] text-secondary mb-2"><strong class="text-primary">Problem:</strong> Cannot write
+					to storage/ or bootstrap/ directories.</p>
+				<p class="text-[13px] text-secondary mb-2">Fix permissions inside the container:</p>
+				<div class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto cursor-pointer"
+					onclick="copyText('docker compose exec app chmod -R 777 storage bootstrap/cache')"
+					title="Click to copy">docker compose exec app chmod -R 777 storage bootstrap/cache</div>
 			</div>
 		</section>
 
-		<!-- FAQ -->
-		<section id="faq" class="guide-section">
-			<h2>6. FAQ</h2>
+		<!-- 6. FAQ -->
+		<section id="faq" class="mb-[72px]">
+			<h2 class="text-2xl font-bold text-primary tracking-[-0.02em] mb-7 pb-3 border-b border-border">6. FAQ</h2>
 
-			<div class="faq-card">
-				<p class="question">Why no Nginx?</p>
-				<p class="answer">Laravel's built-in development server is sufficient for development and removes
-					unnecessary complexity. For production, add Nginx separately.</p>
+			<div
+				class="p-5 bg-elevated border border-border rounded-xl mb-2 transition-colors duration-200 hover:border-border-hover">
+				<p class="text-[15px] font-semibold text-primary mb-2">Why no Nginx?</p>
+				<p class="text-sm text-secondary leading-[1.7]">Laravel's built-in development server is sufficient for
+					development and removes unnecessary complexity. For production, add Nginx separately.</p>
 			</div>
-
-			<div class="faq-card">
-				<p class="question">Why no Redis?</p>
-				<p class="answer">Removed to keep the setup lightweight. If you need caching or queues, add it to
-					docker-compose.yml. Most Laravel apps don't require it in development.</p>
+			<div
+				class="p-5 bg-elevated border border-border rounded-xl mb-2 transition-colors duration-200 hover:border-border-hover">
+				<p class="text-[15px] font-semibold text-primary mb-2">Why no Redis?</p>
+				<p class="text-sm text-secondary leading-[1.7]">Removed to keep the setup lightweight. If you need
+					caching or queues, add it to docker-compose.yml. Most Laravel apps don't require it in development.
+				</p>
 			</div>
-
-			<div class="faq-card">
-				<p class="question">Can I use this in production?</p>
-				<p class="answer">This is designed for development. For production, consider adding Nginx, a reverse
-					proxy, proper logging, and security configurations.</p>
+			<div
+				class="p-5 bg-elevated border border-border rounded-xl mb-2 transition-colors duration-200 hover:border-border-hover">
+				<p class="text-[15px] font-semibold text-primary mb-2">Can I use this in production?</p>
+				<p class="text-sm text-secondary leading-[1.7]">This is designed for development. For production,
+					consider adding Nginx, a reverse proxy, proper logging, and security configurations.</p>
 			</div>
-
-			<div class="faq-card">
-				<p class="question">How do I add Redis?</p>
-				<p class="answer">Add a Redis service to docker-compose.yml and configure CACHE_DRIVER and
-					QUEUE_CONNECTION in .env.</p>
+			<div
+				class="p-5 bg-elevated border border-border rounded-xl mb-2 transition-colors duration-200 hover:border-border-hover">
+				<p class="text-[15px] font-semibold text-primary mb-2">How do I add Redis?</p>
+				<p class="text-sm text-secondary leading-[1.7]">Add a Redis service to docker-compose.yml and configure
+					CACHE_DRIVER and QUEUE_CONNECTION in .env.</p>
 			</div>
-
-			<div class="faq-card">
-				<p class="question">Can I modify memory limits?</p>
-				<p class="answer">Yes. Update APP_MEM_LIMIT and DB_MEM_LIMIT in .env, or edit mem_limit values in
-					docker-compose.yml directly.</p>
+			<div
+				class="p-5 bg-elevated border border-border rounded-xl mb-2 transition-colors duration-200 hover:border-border-hover">
+				<p class="text-[15px] font-semibold text-primary mb-2">Can I modify memory limits?</p>
+				<p class="text-sm text-secondary leading-[1.7]">Yes. Update APP_MEM_LIMIT and DB_MEM_LIMIT in .env, or
+					edit mem_limit values in docker-compose.yml directly.</p>
 			</div>
 		</section>
 
 		<!-- CTA -->
-		<div class="cta-block">
-			<h2>Need more help?</h2>
-			<p>Check the troubleshooting section above or browse the official documentation.</p>
-			<a href="index.html">
+		<div class="p-10 bg-elevated border border-border rounded-xl text-center mb-14">
+			<h2 class="text-xl font-bold text-primary mb-2">Need more help?</h2>
+			<p class="text-sm text-secondary mb-5">Check the troubleshooting section above or browse the official
+				documentation.</p>
+			<a href="index.html"
+				class="inline-flex items-center gap-2 text-sm font-semibold text-secondary no-underline transition-colors duration-200 hover:text-primary">
 				<svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 						d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -917,10 +530,10 @@
 	</div>
 
 	<!-- Footer -->
-	<footer>
-		<div class="container-wide">
-			<p>⚓ Lara Anchor — Lightweight Docker for Laravel</p>
-			<p>© 2026 Lara Anchor · MIT License</p>
+	<footer class="py-10 border-t border-border text-center">
+		<div class="max-w-[1120px] mx-auto px-6">
+			<p class="text-[13px] text-tertiary">⚓ Lara Anchor — Lightweight Docker for Laravel</p>
+			<p class="text-[13px] text-tertiary mt-1">© 2026 Lara Anchor · MIT License</p>
 		</div>
 	</footer>
 
@@ -936,33 +549,39 @@
 			if (existing) existing.remove();
 
 			const toast = document.createElement('div');
-			toast.className = 'toast';
+			toast.className = 'toast fixed bottom-6 right-6 px-5 py-3.5 bg-[#1a1a1a] text-primary border border-border rounded-xl text-sm font-medium z-[9999]';
 			toast.textContent = message;
 			document.body.appendChild(toast);
 			setTimeout(() => toast.remove(), 2500);
 		}
+
+		// Mobile menu toggle
+		const menuToggle = document.getElementById('menuToggle');
+		const navLinks = document.getElementById('navLinks');
+		const navOverlay = document.getElementById('navOverlay');
+
+		function closeMenu() {
+			navLinks.classList.remove('open');
+			navOverlay.classList.add('hidden');
+		}
+
+		menuToggle.addEventListener('click', () => {
+			navLinks.classList.toggle('open');
+			navOverlay.classList.toggle('hidden');
+		});
+
+		navOverlay.addEventListener('click', closeMenu);
 
 		// Smooth scrolling
 		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 			anchor.addEventListener('click', function (e) {
 				if (this.getAttribute('href') === '#') return;
 				e.preventDefault();
+				closeMenu();
 				const target = document.querySelector(this.getAttribute('href'));
 				if (target) {
 					target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 				}
-			});
-		});
-
-		// Add copy buttons to code blocks in content
-		document.querySelectorAll('.cmd-card .code-block, .step-body .code-block, .trouble-card .code-block').forEach(block => {
-			block.style.cursor = 'pointer';
-			block.title = 'Click to copy';
-			block.addEventListener('click', () => {
-				const text = block.textContent.trim();
-				navigator.clipboard.writeText(text).then(() => {
-					showToast('Copied to clipboard');
-				});
 			});
 		});
 	</script>
