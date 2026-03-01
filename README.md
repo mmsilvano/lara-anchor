@@ -1,20 +1,28 @@
 # ⚓ Lara Anchor
 
-**Lara Anchor** is a lightweight, minimal **Laravel Docker starter** for development.  
-Spin up a full Laravel development stack with **PHP 8.5, MySQL 8.3, and Node.js 22**—all on **Alpine Linux**—fast, simple, and highly customizable.
+<p align="center">
+  <strong>Lightweight, minimal Laravel Docker starter for development.</strong><br>
+  Spin up a full Laravel development stack with PHP 8.5, MySQL 8.3, and Node.js 22—all on Alpine Linux—fast, simple, and highly customizable.
+</p>
+
+<p align="center">
+  <a href="#-whats-different">Why Lara Anchor?</a> •
+  <a href="#-quick-start">Quick Start</a> •
+  <a href="#%EF%B8%8F-configuration">Configuration</a> •
+  <a href="#-common-commands">Commands</a>
+</p>
 
 ---
 
 ## 🎯 What's Different?
 
-No bloat. No Redis. No Nginx overhead. Just what you need for Laravel development:
-- ✅ **PHP 8.5 CLI** with php artisan serve (not FPM)
-- ✅ **MySQL 8.3** for your database
-- ✅ **Node.js 22** (optional, via dev profile) with **pnpm** for asset compilation
-- ✅ **Alpine Linux** for minimal image sizes
-- ✅ **Highly Customizable** - extend with any service you need
-- ❌ No Nginx (use php artisan serve instead)
-- ❌ No Redis (add if you need it)
+No bloat. No Redis. No Nginx overhead. Just what you need for modern Laravel development:
+
+- ✅ **PHP 8.5 CLI** running via `php artisan serve` (no FPM complexity)
+- ✅ **MySQL 8.3** as the primary data store
+- ✅ **Node.js 22** (optional profile) with **pnpm** for instantaneous asset compilation
+- ✅ **Alpine Linux** base for incredibly minimal image sizes and fast boot times
+- ✅ **Highly Customizable** – effortlessly extend the core with any additional services
 
 ---
 
@@ -22,24 +30,33 @@ No bloat. No Redis. No Nginx overhead. Just what you need for Laravel developmen
 
 ### One-Command Installation
 
+The easiest way to bootstrap your project is via our installation script:
+
 ```bash
 curl -s https://lara-anchor.netlify.app/install.sh | bash
 ```
 
-This downloads and extracts the latest Lara Anchor template automatically.
+> This automatically downloads and extracts the latest Lara Anchor template directly into your current directory.
 
+### Manual Setup (Docker Compose)
+If you already have your environment variables configured (`cp .env.example .env`), just spin it up:
+```bash
+docker-compose up -d
+```
 
+---
 
 ## ⚙️ Highly Customizable
 
+Lara Anchor is built to be a solid foundation, not a black box.
+
 ### Built-in Customization
-- **Memory Limits**: Adjust PHP and MySQL memory via `.env`
-- **Docker Profiles**: Enable/disable services easily
-- **Node.js Dev Profile**: Optional Node 22 container for asset compilation
-- **Custom Extensions**: Modify Dockerfiles to add PHP extensions
+- **Memory Limits**: Protect your host machine by adjusting PHP and MySQL memory directly in `.env`.
+- **Docker Profiles**: Keep your setup lean by enabling optional services (like Node.js) only when you need them.
+- **Custom Extensions**: Add any required PHP extensions by modifying the clean, well-documented Dockerfiles.
 
 ### Easy to Extend
-Add services directly to `docker-compose.yml`:
+Need more services? Just add them to `docker-compose.yml`:
 
 ```yaml
 # Add Redis if needed
@@ -47,7 +64,7 @@ redis:
   image: redis:alpine
   container_name: laravel_redis
 
-# Add Nginx for production
+# Add Nginx for production-like routing
 nginx:
   image: nginx:alpine
   ports:
@@ -57,7 +74,7 @@ nginx:
 ```
 
 ### Modify Dockerfiles
-Edit PHP or Node images to add extensions:
+Easily slip in new extensions:
 
 ```dockerfile
 # In templates/docker/php/Dockerfile
@@ -73,6 +90,8 @@ docker-compose up -d --build
 ## ⚙️ Configuration
 
 ### Environment Variables (.env)
+
+Everything is controlled via a centralized configuration:
 
 ```env
 # Laravel Configuration
@@ -97,9 +116,9 @@ DB_MEM_LIMIT=512m           # MySQL container memory
 ```
 
 ### Adjust Memory Limits
-Edit `.env` or `docker-compose.yml` to change container memory allocations:
+Edit `.env` or `docker-compose.yml` to strictly allocate memory:
 ```yaml
-mem_limit: ${APP_MEM_LIMIT:-256m}  # Change 256m to your desired limit
+mem_limit: ${APP_MEM_LIMIT:-256m}  # Adjust 256m to your desired ceiling
 ```
 
 ---
@@ -111,54 +130,52 @@ mem_limit: ${APP_MEM_LIMIT:-256m}  # Change 256m to your desired limit
 # Start containers (background)
 docker-compose up -d
 
-# Stop containers
+# Stop all containers
 docker-compose down
 
-# View logs
+# Tail logs
 docker-compose logs -f app
 
-# Restart containers
+# Restart the stack
 docker-compose restart
 ```
 
 ### Laravel Artisan
 ```bash
-# Run artisan commands
+# General Artisan usage
 docker-compose exec app php artisan migrate
 docker-compose exec app php artisan tinker
 docker-compose exec app php artisan cache:clear
 
-# Run tests
+# Execute Test Suite
 docker-compose exec app php artisan test
 ```
 
 ### Composer
 ```bash
-# Install packages
+# General Package Management
 docker-compose exec app composer install
-
-# Require new package
 docker-compose exec app composer require vendor/package
-
-# Update packages
 docker-compose exec app composer update
 ```
 
-### Database
+### Database Operations
 ```bash
-# Access MySQL shell
+# Access MySQL interactive shell as standard user
 docker-compose exec mysql mysql -u laravel -p laravel
 
-# Or with root
-docker-compose exec mysql mysql -u root -p -e "your sql commands"
+# Run arbitrary SQL as root
+docker-compose exec mysql mysql -u root -p -e "SHOW DATABASES;"
 ```
 
 ### Node (Optional - Dev Profile)
+Asset compilation is isolated in a separate container accessible via the `dev` profile.
+
 ```bash
-# Start with Node container
+# Boot the stack including the Node container
 docker-compose --profile dev up -d
 
-# Run pnpm commands
+# Execute Frontend Tooling
 docker-compose exec node pnpm install
 docker-compose exec node pnpm dev
 docker-compose exec node pnpm build
@@ -169,13 +186,7 @@ docker-compose exec node pnpm build
 ## 🛠️ Development Workflow
 
 ### File Synchronization
-Your local files are mounted as volumes. Changes are reflected instantly in the container. No rebuilds needed.
-
-### Debug Mode
-Enable debug mode in `.env`:
-```env
-APP_DEBUG=true
-```
+Your local directories are deeply synced as Docker volumes. Any changes hit the container instantly—absolutely zero rebuilds are necessary for application code.
 
 ### Database Access
 Connect using any MySQL client:
@@ -191,57 +202,70 @@ If you need more resources, edit `.env`:
 APP_MEM_LIMIT=512m      # Increase PHP memory
 DB_MEM_LIMIT=1024m      # Increase MySQL memory
 ```
-
-Then restart:
+Then cycle the cluster:
 ```bash
-docker-compose down
-docker-compose up -d
+docker-compose down && docker-compose up -d
 ```
 
 ---
 
 ## 🆘 Troubleshooting
 
-### Port 8000 Already in Use
+<details>
+<summary><strong>Port 8000 Already in Use</strong></summary>
+
 ```bash
-# Find process using port 8000
+# Find the rogue process
 lsof -i :8000
 
-# Kill the process
+# Terminate it
 kill -9 <PID>
 
-# Or change the port in docker-compose.yml
+# Alternatively, just remap the port in docker-compose.yml
 ```
+</details>
 
-### Database Connection Error
-Ensure MySQL is running and credentials match:
+<details>
+<summary><strong>Database Connection Error</strong></summary>
+
+Ensure the database container is actively running and credentials map exactly correctly:
 ```bash
 docker-compose ps
 docker-compose logs mysql
 ```
+</details>
 
-### Permission Denied on Storage
+<details>
+<summary><strong>Permission Denied on Storage Directories</strong></summary>
+
 ```bash
 docker-compose exec app chmod -R 777 storage bootstrap/cache
 ```
+</details>
 
-### Containers Won't Start
-Check the logs:
+<details>
+<summary><strong>Containers Repeatedly Flailing or Failing to Start</strong></summary>
+
+Check the master logs to isolate the exact fault:
 ```bash
 docker-compose logs
 ```
+</details>
 
-### Clear Cache & Rebuild
+<details>
+<summary><strong>Out of Sync Cache or Hard Reset</strong></summary>
+
 ```bash
 docker-compose exec app composer clear-cache
 docker-compose exec app php artisan cache:clear
+docker-compose down -v
 docker-compose up -d --build
 ```
+</details>
 
-
+---
 
 ## 🔗 Resources
-
 - [Laravel Documentation](https://laravel.com/docs)
 - [Docker Documentation](https://docs.docker.com/)
 - [MySQL Docker Hub](https://hub.docker.com/_/mysql)
@@ -249,16 +273,15 @@ docker-compose up -d --build
 
 ---
 
-## 📝 License
-
-This project is open source and available under the MIT License.
-
----
-
 ## 🤝 Contributing
-
-Found a bug or have suggestions? Feel free to submit issues or pull requests!
+Found a bug, want to add a feature, or have a suggestion? Feel absolutely free to submit issues or open pull requests!
 
 ---
 
-Made with ❤️ for Laravel developers
+<p align="center">Made with ❤️ for Laravel developers</p>
+
+---
+
+## License
+
+Lara Anchor is open-sourced software licensed under the [MIT License](LICENSE).
