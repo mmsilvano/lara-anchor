@@ -190,40 +190,6 @@
 				Installation</h2>
 
 			<div class="p-6 bg-elevated border border-border rounded-xl mb-4">
-				<h3 class="text-base font-semibold text-primary mb-3">Prerequisites</h3>
-				<ul class="list-none flex flex-col gap-2">
-					<li class="flex items-center gap-2.5 text-sm text-secondary">
-						<svg class="w-[18px] h-[18px] shrink-0 text-green" fill="none" stroke="currentColor"
-							viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-						</svg>
-						<span><strong class="text-primary">Docker</strong> installed (includes docker compose)</span>
-					</li>
-					<li class="flex items-center gap-2.5 text-sm text-secondary">
-						<svg class="w-[18px] h-[18px] shrink-0 text-green" fill="none" stroke="currentColor"
-							viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-						</svg>
-						<span><strong class="text-primary">Git</strong> installed on your system</span>
-					</li>
-					<li class="flex items-center gap-2.5 text-sm text-secondary">
-						<svg class="w-[18px] h-[18px] shrink-0 text-green" fill="none" stroke="currentColor"
-							viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-						</svg>
-						<span><strong class="text-primary">4GB+ RAM</strong> available for Docker containers</span>
-					</li>
-					<li class="flex items-center gap-2.5 text-sm text-secondary">
-						<svg class="w-[18px] h-[18px] shrink-0 text-green" fill="none" stroke="currentColor"
-							viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-						</svg>
-						<span>A code editor (VS Code recommended)</span>
-					</li>
-				</ul>
-			</div>
-
-			<div class="p-6 bg-elevated border border-border rounded-xl mb-4">
 				<h3 class="text-base font-semibold text-primary mb-3">One-Command Installation</h3>
 				<div class="flex gap-2 items-stretch">
 					<div
@@ -326,13 +292,14 @@
 				<p class="text-sm text-secondary mb-3 leading-[1.7]">Key environment variables for Docker configuration:
 				</p>
 				<div
-					class="px-4 py-3.5 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto leading-[1.8] whitespace-pre">
-					APP_MEM_LIMIT=256m <span class="text-tertiary"># Memory limit for PHP container</span>
-					DB_MEM_LIMIT=512m <span class="text-tertiary"># Memory limit for MySQL</span>
-					MYSQL_DATABASE=laravel <span class="text-tertiary"># Database name</span>
-					MYSQL_USER=laravel <span class="text-tertiary"># Database user</span>
-					MYSQL_PASSWORD=secret <span class="text-tertiary"># Database password</span>
-					MYSQL_ROOT_PASSWORD=root <span class="text-tertiary"># MySQL root password</span></div>
+					class="px-4 py-3.5 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto leading-[1.8]">
+					APP_MEM_LIMIT=256m <span class="text-tertiary"># Memory limit for PHP container</span><br>
+					DB_MEM_LIMIT=512m <span class="text-tertiary"># Memory limit for MySQL</span><br>
+					MYSQL_DATABASE=laravel <span class="text-tertiary"># Database name</span><br>
+					MYSQL_USER=laravel <span class="text-tertiary"># Database user</span><br>
+					MYSQL_PASSWORD=secret <span class="text-tertiary"># Database password</span><br>
+					MYSQL_ROOT_PASSWORD=root <span class="text-tertiary"># MySQL root password</span>
+				</div>
 			</div>
 
 			<div class="px-5 py-4 bg-elevated border border-l-4 border-l-yellow border-border rounded-lg mb-4">
