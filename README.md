@@ -284,4 +284,4 @@ Found a bug, want to add a feature, or have a suggestion? Feel absolutely free t
 
 ## License
 
-Lara Anchor is open-sourced software licensed under the [MIT License](LICENSE).
+Lara Anchor is open-sourced software licensed under the [MIT License](https://opensource.org/license/MIT).
