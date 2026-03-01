@@ -32,6 +32,6 @@ services:
     volumes:
       - ./:/var/www/html
     profiles: ["dev"]
-
+    tty: true
 volumes:
   db_data:
