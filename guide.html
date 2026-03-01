@@ -47,9 +47,14 @@
 							'0%': { opacity: '0', transform: 'translateY(16px)' },
 							'100%': { opacity: '1', transform: 'translateY(0)' },
 						},
+						'fade-in': {
+							'0%': { opacity: '0' },
+							'100%': { opacity: '1' },
+						},
 					},
 					animation: {
 						'fade-up': 'fade-up 0.5s ease-out both',
+						'fade-in': 'fade-in 0.4s ease-out both',
 					},
 				},
 			},
@@ -116,7 +121,7 @@
 	</style>
 </head>
 
-<body class="bg-bg text-primary font-sans leading-relaxed antialiased">
+<body class="bg-bg text-primary font-sans leading-relaxed antialiased animate-fade-in">
 
 	<!-- Navigation -->
 	<nav class="fixed top-0 w-full z-[100] bg-[rgba(10,10,10,0.85)] backdrop-blur-xl border-b border-border">
