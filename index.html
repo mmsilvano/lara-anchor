@@ -313,19 +313,6 @@
 					have a full Laravel stack running locally.</p>
 			</div>
 
-			<!-- Install block -->
-			<div class="mb-12 p-6 bg-elevated border border-border rounded-xl">
-				<p class="text-[13px] font-semibold text-secondary uppercase tracking-[0.06em] mb-3">One-command install
-				</p>
-				<div class="flex gap-2 items-stretch max-sm:flex-col">
-					<div id="installCommand"
-						class="flex-1 px-4 py-3.5 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto whitespace-nowrap">
-						curl -s https://lara-anchor.netlify.app/install.sh | bash</div>
-					<button onclick="copyInstallCommand()"
-						class="px-4 py-3.5 bg-surface text-secondary border border-border rounded-lg text-[13px] font-medium font-sans whitespace-nowrap cursor-pointer transition-colors duration-200 hover:text-primary hover:border-border-hover">Copy</button>
-				</div>
-			</div>
-
 			<!-- Steps -->
 			<div class="flex flex-col gap-0.5">
 				<div class="flex gap-5 p-6 bg-elevated border border-border rounded-xl">
@@ -336,10 +323,10 @@
 						<h3 class="text-[15px] font-semibold text-primary mb-1.5">Download &amp; Extract</h3>
 						<p class="text-sm text-secondary mb-3">The install script downloads and extracts the latest
 							template.</p>
-						<div
-							class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto">
-							curl -L https://lara-anchor.netlify.app/lara-anchor.zip -o lara-anchor.zip<br>unzip
-							lara-anchor.zip &amp;&amp; cd lara-anchor</div>
+						<div class="px-3.5 py-3 bg-code-bg border border-border rounded-lg font-mono text-[13px] text-primary overflow-x-auto cursor-pointer"
+							onclick="copyText('curl -s https://lara-anchor.netlify.app/install.sh | bash')"
+							title="Click to copy">
+							curl -s https://lara-anchor.netlify.app/install.sh | bash</div>
 					</div>
 				</div>
 				<div class="flex gap-5 p-6 bg-elevated border border-border rounded-xl mt-2">
@@ -436,9 +423,8 @@
 	</footer>
 
 	<script>
-		function copyInstallCommand() {
-			const command = 'curl -s https://lara-anchor.netlify.app/install.sh | bash';
-			navigator.clipboard.writeText(command).then(() => {
+		function copyText(text) {
+			navigator.clipboard.writeText(text).then(() => {
 				showToast('Copied to clipboard');
 			});
 		}
